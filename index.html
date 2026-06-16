@@ -1,109 +1,448 @@
 <!DOCTYPE html>
-<html lang="fr" data-fr-scheme="system">
+<html lang="fr" data-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Accueil · Gendarmerie Nationale RP</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gendarmerie Nationale · Roleplay</title>
 
-    <!-- ===== DSFR CSS ===== -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.0/dist/css/dsfr.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.0/dist/css/utility/utility.min.css" />
-
-    <!-- ===== POLICE MARIANNE (fallback) ===== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <!-- ===== POLICE MARIANNE (Google Fonts) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
         /* ============================================================
-           AJUSTEMENTS SPÉCIFIQUES
+           VARIABLES & RESET
            ============================================================ */
-
-        /* --- Correction du bandeau "Ministère de l'intérieur" --- */
-        .fr-header__logo .fr-logo {
-            font-size: 0.75rem;
-            line-height: 1.2;
+        :root {
+            --blue-france: #000091;
+            --blue-france-hover: #0000b3;
+            --red-marianne: #e1000f;
+            --red-marianne-hover: #b8000c;
+            --white: #ffffff;
+            --grey-100: #f5f5f5;
+            --grey-200: #e6e6e6;
+            --grey-300: #d0d7de;
+            --grey-800: #2a2a2a;
+            --text-primary: #1e1e1e;
+            --text-secondary: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --radius: 4px;
+            --transition: 0.2s ease;
+            --font: 'Marianne', 'Segoe UI', Arial, sans-serif;
+            --bg-body: var(--white);
+            --bg-header: var(--white);
+            --bg-menu: var(--white);
+            --bg-card: var(--white);
+            --border-color: var(--grey-300);
         }
-        .fr-header__logo .fr-logo::before {
-            content: "Ministère";
+
+        /* --- Mode sombre --- */
+        [data-theme="dark"] {
+            --bg-body: #1a1a1a;
+            --bg-header: #222222;
+            --bg-menu: #222222;
+            --bg-card: #2a2a2a;
+            --border-color: #444444;
+            --text-primary: #f0f0f0;
+            --text-secondary: #aaaaaa;
+            --grey-100: #2a2a2a;
+            --grey-200: #3a3a3a;
+            --grey-300: #4a4a4a;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-body);
+            color: var(--text-primary);
+            transition: background var(--transition), color var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            color: var(--blue-france);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+           HEADER (topbar)
+           ============================================================ */
+        .topbar {
+            background: var(--bg-header);
+            border-bottom: 2px solid var(--blue-france);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            transition: background var(--transition), border-color var(--transition);
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.1;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--blue-france);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .logo-container span {
             display: block;
+        }
+        .logo-container .ministry {
             font-weight: 300;
         }
-        .fr-header__logo .fr-logo::after {
-            content: "de l'intérieur";
-            display: block;
+        .logo-container .interior {
             font-weight: 700;
         }
+        /* Logo image (si vous en avez une) */
+        .logo-img {
+            height: 48px;
+            width: auto;
+            margin-right: 0.5rem;
+        }
 
-        /* --- Badge "SITE NON OFFICIEL · ROLEPLAY" --- */
-        .badge-rp {
-            background: var(--red-marianne);
-            color: #fff;
-            font-size: 0.6rem;
+        .site-title {
+            display: flex;
+            flex-direction: column;
+        }
+        .site-title h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--blue-france);
+            margin: 0;
+            line-height: 1.2;
+        }
+        .site-title .badge-rp {
+            font-size: 0.55rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 2px 12px;
+            background: var(--red-marianne);
+            color: #fff;
+            padding: 1px 10px;
             border-radius: 20px;
             display: inline-block;
-            margin-left: 8px;
-            vertical-align: middle;
+            width: fit-content;
+            margin-top: 1px;
+        }
+        .site-title .tagline {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin: 0;
         }
 
-        /* --- Contenu principal --- */
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 0.2rem 0.2rem 0.2rem 0.8rem;
+            transition: var(--transition);
+        }
+        .search-box:focus-within {
+            border-color: var(--blue-france);
+            box-shadow: 0 0 0 3px rgba(0, 0, 145, 0.15);
+        }
+        .search-box input {
+            border: none;
+            background: transparent;
+            padding: 0.4rem 0.2rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            outline: none;
+            width: 140px;
+            font-family: inherit;
+        }
+        .search-box input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        .search-box button {
+            background: var(--blue-france);
+            border: none;
+            color: #fff;
+            padding: 0.4rem 0.9rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .search-box button:hover {
+            background: var(--blue-france-hover);
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .theme-btn:hover {
+            background: var(--grey-100);
+        }
+
+        /* ============================================================
+           MENU (navigation)
+           ============================================================ */
+        .menu-bar {
+            background: var(--bg-menu);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            transition: background var(--transition), border-color var(--transition);
+        }
+
+        .menu-bar ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            gap: 0.25rem;
+            padding: 0.4rem 0;
+            margin: 0;
+        }
+
+        .menu-bar li {
+            position: relative;
+        }
+
+        .menu-bar a,
+        .menu-bar .dropbtn {
+            display: block;
+            padding: 0.5rem 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .menu-bar a:hover,
+        .menu-bar .dropbtn:hover {
+            background: var(--blue-france);
+            color: #fff;
+        }
+
+        .menu-bar .home-link {
+            font-size: 1.2rem;
+            padding: 0.4rem 0.7rem;
+        }
+
+        /* Sous-menu */
+        .menu-bar .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 0.3rem 0;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            flex-direction: column;
+            gap: 0;
+        }
+        .menu-bar .sub-menu li {
+            width: 100%;
+        }
+        .menu-bar .sub-menu a {
+            padding: 0.5rem 1rem;
+            font-weight: 400;
+            font-size: 0.8rem;
+            border-left: 3px solid transparent;
+            border-radius: 0;
+            white-space: normal;
+        }
+        .menu-bar .sub-menu a:hover {
+            background: var(--grey-100);
+            border-left-color: var(--red-marianne);
+            color: var(--blue-france);
+        }
+
+        .menu-bar li:hover .sub-menu {
+            display: flex;
+        }
+
+        /* ============================================================
+           CONTENU PRINCIPAL
+           ============================================================ */
         .page-content {
-            padding: 2rem 0 4rem;
+            flex: 1;
+            padding: 2rem 1.5rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            animation: fadeUp 0.3s ease;
         }
 
-        /* --- Cartes d'accueil --- */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        .card-grid .fr-card {
-            height: 100%;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .card-grid .fr-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Hero (bandeau d'accueil) --- */
+        /* --- Hero (page d'accueil) --- */
         .hero {
-            background: var(--background-alt-grey);
-            border-radius: 0.5rem;
+            background: var(--grey-100);
+            border-radius: var(--radius);
             padding: 2.5rem 2rem;
             margin-bottom: 2rem;
             border-left: 4px solid var(--blue-france);
+            transition: background var(--transition);
         }
         .hero h1 {
             color: var(--blue-france);
             font-size: 2rem;
             font-weight: 700;
+            margin: 0 0 0.25rem 0;
         }
         .hero h1 span {
             color: var(--red-marianne);
         }
         .hero p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
             max-width: 600px;
+            margin: 0 0 1rem 0;
+            line-height: 1.5;
+        }
+        .hero .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .hero .cta-group .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            background: var(--blue-france);
+            color: #fff;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        .hero .cta-group .btn:hover {
+            background: var(--blue-france-hover);
+        }
+        .hero .cta-group .btn-outline {
+            background: transparent;
+            border: 1px solid var(--blue-france);
+            color: var(--blue-france);
+        }
+        .hero .cta-group .btn-outline:hover {
+            background: var(--blue-france);
+            color: #fff;
+        }
+
+        /* --- Grille de cartes --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--blue-france);
+        }
+        .card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--blue-france);
+            margin: 0 0 0.25rem 0;
+        }
+        .card h3 a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .card h3 a:hover {
+            text-decoration: underline;
+        }
+        .card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
         }
 
         /* --- Pages génériques --- */
-        .page-generic .fr-card {
+        .page-generic .card-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
             padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: background var(--transition), border-color var(--transition);
         }
-        .page-generic .fr-card h2 {
+        .page-generic .card-content h2 {
             color: var(--blue-france);
             font-size: 1.6rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin: 0 0 0.25rem 0;
         }
-        .page-generic .fr-card h2::after {
+        .page-generic .card-content h2::after {
             content: '';
             display: block;
             width: 60px;
@@ -111,22 +450,24 @@
             background: var(--red-marianne);
             margin-top: 0.3rem;
         }
-        .page-generic .fr-card .subhead {
-            color: var(--text-muted);
+        .page-generic .card-content .subhead {
+            color: var(--text-secondary);
             font-size: 1rem;
             margin-bottom: 1.2rem;
         }
-        .page-generic .fr-card p {
-            margin-bottom: 0.8rem;
+        .page-generic .card-content p {
+            margin: 0 0 0.8rem 0;
             line-height: 1.6;
+            color: var(--text-primary);
         }
-        .page-generic .fr-card ul {
+        .page-generic .card-content ul {
             padding-left: 1.5rem;
             margin: 0.8rem 0 1.2rem;
         }
-        .page-generic .fr-card ul li {
+        .page-generic .card-content ul li {
             margin-bottom: 0.4rem;
             list-style-type: disc;
+            color: var(--text-primary);
         }
 
         /* --- Page indisponible --- */
@@ -142,61 +483,159 @@
         .page-indispo h2 {
             color: var(--blue-france);
             font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
         }
         .page-indispo p {
-            color: var(--text-muted);
+            color: var(--text-secondary);
             max-width: 400px;
             margin: 0 auto;
         }
 
-        /* --- Correction du fond du header en mode sombre --- */
-        .fr-header {
-            background: var(--background-default-grey);
+        /* ============================================================
+           MODAL THÈME
+           ============================================================ */
+        .theme-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .theme-modal.open {
+            display: flex;
+        }
+        .theme-modal .modal-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+        }
+        .theme-modal .modal-box .close-btn {
+            float: right;
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-family: inherit;
+        }
+        .theme-modal .modal-box .close-btn:hover {
+            color: var(--red-marianne);
+        }
+        .theme-modal .modal-box h2 {
+            color: var(--blue-france);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+        }
+        .theme-modal .modal-box .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+            padding: 0.4rem 0.6rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .theme-modal .modal-box .theme-option:hover {
+            background: var(--grey-100);
+        }
+        .theme-modal .modal-box .theme-option input[type="radio"] {
+            accent-color: var(--blue-france);
+            width: 1.1rem;
+            height: 1.1rem;
+        }
+        .theme-modal .modal-box .theme-option label {
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        .theme-modal .modal-box .theme-option .hint {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-left: 1.8rem;
         }
 
-        /* --- Ajustement de la barre de recherche --- */
-        .fr-search-bar .fr-input {
-            background: var(--background-default-grey);
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 820px) {
+            .topbar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+            }
+            .topbar-left {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .topbar-right {
+                justify-content: center;
+            }
+            .search-box input {
+                width: 100px;
+            }
+            .menu-bar {
+                padding: 0 0.5rem;
+            }
+            .menu-bar ul {
+                justify-content: center;
+            }
+            .menu-bar .sub-menu {
+                position: static;
+                box-shadow: none;
+                border: none;
+                padding-left: 1rem;
+            }
+            .menu-bar li:hover .sub-menu {
+                display: none;
+            }
+            .menu-bar li .sub-menu.open {
+                display: flex !important;
+            }
         }
 
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
+        @media (max-width: 540px) {
+            .topbar-left {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .site-title h1 {
+                font-size: 1.1rem;
+            }
+            .search-box input {
+                width: 80px;
+                font-size: 0.75rem;
+            }
+            .search-box button {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
+            }
             .hero h1 {
                 font-size: 1.5rem;
             }
             .card-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .fr-header__service-title {
-                font-size: 1rem !important;
-            }
-            .badge-rp {
-                font-size: 0.5rem;
-                padding: 1px 8px;
-                margin-left: 4px;
-            }
-        }
-        @media (max-width: 480px) {
-            .card-grid {
                 grid-template-columns: 1fr;
             }
-            .hero {
-                padding: 1.5rem 1rem;
+            .menu-bar ul {
+                gap: 0.1rem;
             }
-        }
-
-        /* --- Animation d'apparition --- */
-        .page-content {
-            animation: fadeUp 0.3s ease;
-        }
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
+            .menu-bar a,
+            .menu-bar .dropbtn {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
             }
         }
     </style>
@@ -205,185 +644,81 @@
 <body>
 
     <!-- ============================================================
-    HEADER (conforme DSFR)
+    TOPBAR
     ============================================================ -->
-    <header role="banner" class="fr-header">
-        <div class="fr-header__body">
-            <div class="fr-container">
-                <div class="fr-header__body-row">
+    <header class="topbar" role="banner">
+        <div class="topbar-left">
+            <!-- Logo (remplacez par votre image si besoin) -->
+            <div class="logo-container">
+                <span class="ministry">Ministère</span>
+                <span class="interior">de l'intérieur</span>
+            </div>
+            <!-- ou : <img class="logo-img" src="/utils/public/images/index/ministre.png" alt="Logo" /> -->
 
-                    <!-- Marque État + logo -->
-                    <div class="fr-header__brand fr-enlarge-link">
-                        <div class="fr-header__brand-top">
-                            <div class="fr-header__logo">
-                                <p class="fr-logo">
-                                    <span class="fr-sr-only">Ministère de l'intérieur</span>
-                                </p>
-                            </div>
-                            <div class="fr-header__navbar">
-                                <button class="fr-btn--search fr-btn" data-fr-opened="false" aria-controls="modal-search" title="Rechercher">
-                                    Rechercher
-                                </button>
-                                <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-menu" title="Menu">
-                                    Menu
-                                </button>
-                            </div>
-                        </div>
-                        <div class="fr-header__service">
-                            <a href="#" data-page="accueil" title="Accueil - Gendarmerie nationale">
-                                <p class="fr-header__service-title">
-                                    Gendarmerie nationale
-                                    <span class="badge-rp">SITE NON OFFICIEL · ROLEPLAY</span>
-                                </p>
-                            </a>
-                            <p class="fr-header__service-tagline">Site officiel de la Gendarmerie nationale</p>
-                        </div>
-                    </div>
-
-                    <!-- Outils (recherche + thème) -->
-                    <div class="fr-header__tools">
-                        <div class="fr-header__tools-links">
-                            <ul class="fr-btns-group">
-                                <li>
-                                    <button class="fr-btn--display fr-btn" aria-controls="fr-theme-modal" data-fr-opened="false">
-                                        Paramètres d'affichage
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="fr-header__search fr-modal" id="modal-search">
-                            <div class="fr-container fr-container-lg--fluid">
-                                <button class="fr-btn--close fr-btn" aria-controls="modal-search">Fermer</button>
-                                <div class="fr-search-bar" role="search">
-                                    <label class="fr-label" for="header-search">Recherche</label>
-                                    <input class="fr-input" placeholder="Rechercher..." type="search" id="header-search" name="query" />
-                                    <button class="fr-btn" type="submit" id="search-btn">Rechercher</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="site-title">
+                <h1>
+                    Gendarmerie nationale
+                    <span class="badge-rp">SITE NON OFFICIEL · ROLEPLAY</span>
+                </h1>
+                <p class="tagline">Site officiel de la Gendarmerie nationale</p>
             </div>
         </div>
 
-        <!-- Menu de navigation -->
-        <div class="fr-header__menu fr-modal" id="modal-menu">
-            <div class="fr-container">
-                <button class="fr-link--close fr-link" aria-controls="modal-menu">Fermer</button>
-                <div class="fr-header__menu-links">
-                    <ul class="fr-btns-group">
-                        <li>
-                            <button class="fr-btn--display fr-btn" aria-controls="fr-theme-modal" data-fr-opened="false">
-                                Paramètres d'affichage
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <nav class="fr-nav" role="navigation" aria-label="Navigation principale">
-                    <ul class="fr-nav__list">
-                        <!-- Accueil -->
-                        <li class="fr-nav__item">
-                            <a class="fr-nav__link" href="#" data-page="accueil" aria-current="page">Accueil</a>
-                        </li>
-
-                        <!-- Présentation -->
-                        <li class="fr-nav__item">
-                            <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-presentation">Présentation</button>
-                            <div class="fr-collapse" id="menu-presentation">
-                                <ul class="fr-nav__sub-list">
-                                    <li><a class="fr-nav__link" href="#" data-page="presentation">Présentation</a></li>
-                                    <li><a class="fr-nav__link" href="#" data-page="histoire">Histoire et patrimoine</a></li>
-                                    <li><a class="fr-nav__link" href="#" data-page="missions">Les missions de la gendarmerie</a></li>
-                                    <li><a class="fr-nav__link" href="#" data-page="international">À l'international</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <!-- Organisation -->
-                        <li class="fr-nav__item">
-                            <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-organisation">Organisation</button>
-                            <div class="fr-collapse" id="menu-organisation">
-                                <ul class="fr-nav__sub-list">
-                                    <li><a class="fr-nav__link" href="#" data-page="unites">Nos unités</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <!-- Recrutement -->
-                        <li class="fr-nav__item">
-                            <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-recrutement">La Gendarmerie Recrute</button>
-                            <div class="fr-collapse" id="menu-recrutement">
-                                <ul class="fr-nav__sub-list">
-                                    <li><a class="fr-nav__link" href="#" data-page="recrutement">Recrutement</a></li>
-                                    <li><a class="fr-nav__link" href="#" data-page="offres">Offres d'emploi</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <!-- Nos sites -->
-                        <li class="fr-nav__item">
-                            <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-sites">Nos sites</button>
-                            <div class="fr-collapse" id="menu-sites">
-                                <ul class="fr-nav__sub-list">
-                                    <li><a class="fr-nav__link" href="#" data-page="indisponible">Indisponible</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
+        <div class="topbar-right">
+            <div class="search-box">
+                <input type="search" id="searchInput" placeholder="Rechercher..." aria-label="Rechercher">
+                <button id="searchBtn">Rechercher</button>
             </div>
+            <button class="theme-btn" id="themeToggleBtn">
+                <span id="themeIcon">☀️</span> Thème
+            </button>
         </div>
     </header>
 
     <!-- ============================================================
-    MODAL THÈME (DSFR)
+    MENU
     ============================================================ -->
-    <dialog id="fr-theme-modal" class="fr-modal" role="dialog" aria-labelledby="fr-theme-modal-title">
-        <div class="fr-container fr-container--fluid fr-container-md">
-            <div class="fr-grid-row fr-grid-row--center">
-                <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
-                    <div class="fr-modal__body">
-                        <div class="fr-modal__header">
-                            <button class="fr-btn--close fr-btn" aria-controls="fr-theme-modal">Fermer</button>
-                        </div>
-                        <div class="fr-modal__content">
-                            <h1 id="fr-theme-modal-title" class="fr-modal__title">
-                                <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
-                                Paramètres d'affichage
-                            </h1>
-                            <div class="fr-form-group">
-                                <fieldset class="fr-fieldset">
-                                    <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
-                                        Choisissez un thème pour personnaliser l'apparence du site.
-                                    </legend>
-                                    <div class="fr-fieldset__element">
-                                        <div class="fr-radio-group">
-                                            <input type="radio" id="theme-light" name="theme" value="light" />
-                                            <label class="fr-label" for="theme-light">Thème clair</label>
-                                        </div>
-                                    </div>
-                                    <div class="fr-fieldset__element">
-                                        <div class="fr-radio-group">
-                                            <input type="radio" id="theme-dark" name="theme" value="dark" />
-                                            <label class="fr-label" for="theme-dark">Thème sombre</label>
-                                        </div>
-                                    </div>
-                                    <div class="fr-fieldset__element">
-                                        <div class="fr-radio-group">
-                                            <input type="radio" id="theme-system" name="theme" value="system" checked />
-                                            <label class="fr-label" for="theme-system">Système</label>
-                                            <span class="fr-hint-text">Utilise les paramètres système.</span>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </dialog>
+    <nav class="menu-bar" role="navigation" aria-label="Navigation principale">
+        <ul>
+            <li><a href="#" data-page="accueil" class="home-link" title="Accueil">🏠</a></li>
+
+            <!-- Présentation -->
+            <li>
+                <button class="dropbtn" aria-expanded="false">Présentation ▾</button>
+                <ul class="sub-menu">
+                    <li><a href="#" data-page="presentation">Présentation</a></li>
+                    <li><a href="#" data-page="histoire">Histoire et patrimoine</a></li>
+                    <li><a href="#" data-page="missions">Les missions de la gendarmerie</a></li>
+                    <li><a href="#" data-page="international">À l'international</a></li>
+                </ul>
+            </li>
+
+            <!-- Organisation -->
+            <li>
+                <button class="dropbtn" aria-expanded="false">Organisation ▾</button>
+                <ul class="sub-menu">
+                    <li><a href="#" data-page="unites">Nos unités</a></li>
+                </ul>
+            </li>
+
+            <!-- Recrutement -->
+            <li>
+                <button class="dropbtn" aria-expanded="false">La Gendarmerie Recrute ▾</button>
+                <ul class="sub-menu">
+                    <li><a href="#" data-page="recrutement">Recrutement</a></li>
+                    <li><a href="#" data-page="offres">Offres d'emploi</a></li>
+                </ul>
+            </li>
+
+            <!-- Nos sites -->
+            <li>
+                <button class="dropbtn" aria-expanded="false">Nos sites ▾</button>
+                <ul class="sub-menu">
+                    <li><a href="#" data-page="indisponible">Indisponible</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
     <!-- ============================================================
     CONTENU PRINCIPAL
@@ -393,41 +728,69 @@
     </main>
 
     <!-- ============================================================
+    MODAL THÈME
+    ============================================================ -->
+    <div class="theme-modal" id="themeModal">
+        <div class="modal-box">
+            <button class="close-btn" id="themeModalClose">✕</button>
+            <h2>Paramètres d'affichage</h2>
+            <p style="color:var(--text-secondary);margin-bottom:1rem;">Choisissez un thème pour personnaliser l'apparence du site.</p>
+
+            <div class="theme-option">
+                <input type="radio" id="theme-light" name="theme" value="light">
+                <label for="theme-light">☀️ Thème clair</label>
+            </div>
+            <div class="theme-option">
+                <input type="radio" id="theme-dark" name="theme" value="dark">
+                <label for="theme-dark">🌙 Thème sombre</label>
+            </div>
+            <div class="theme-option">
+                <input type="radio" id="theme-system" name="theme" value="system" checked>
+                <label for="theme-system">🖥️ Système</label>
+                <span class="hint">Utilise les paramètres système.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
     SCRIPTS
     ============================================================ -->
-    <!-- DSFR JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.0/dist/dsfr.min.js">
-    </script>
-
     <script>
         (function() {
             'use strict';
 
             // ============================================================
-            // 1. ÉLÉMENTS DOM
+            // ÉLÉMENTS DOM
             // ============================================================
             const content = document.getElementById('pageContent');
-            const searchInput = document.getElementById('header-search');
-            const searchBtn = document.getElementById('search-btn');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const themeModal = document.getElementById('themeModal');
+            const themeModalClose = document.getElementById('themeModalClose');
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeIcon = document.getElementById('themeIcon');
             const themeRadios = document.querySelectorAll('input[name="theme"]');
-            const menuLinks = document.querySelectorAll('[data-page]');
 
             // ============================================================
-            // 2. THÈME (stocké en local)
+            // THÈME
             // ============================================================
             function applyTheme(mode) {
                 const html = document.documentElement;
                 if (mode === 'light') {
-                    html.setAttribute('data-fr-scheme', 'light');
+                    html.setAttribute('data-theme', 'light');
+                    themeIcon.textContent = '☀️';
                 } else if (mode === 'dark') {
-                    html.setAttribute('data-fr-scheme', 'dark');
+                    html.setAttribute('data-theme', 'dark');
+                    themeIcon.textContent = '🌙';
                 } else {
-                    html.setAttribute('data-fr-scheme', 'system');
+                    html.removeAttribute('data-theme');
+                    // système : on détecte via prefers-color-scheme
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+                    themeIcon.textContent = prefersDark ? '🌙' : '☀️';
                 }
-                // Mettre à jour les radios
-                themeRadios.forEach(r => {
-                    r.checked = (r.value === mode);
-                });
+                // mettre à jour les radios
+                themeRadios.forEach(r => r.checked = (r.value === mode));
                 localStorage.setItem('gendarmerie-theme', mode);
             }
 
@@ -436,84 +799,71 @@
                 applyTheme(stored);
             }
 
-            // Écouter les changements sur les radios
+            // écouter les changements système
+            const systemMedia = window.matchMedia('(prefers-color-scheme: dark)');
+            systemMedia.addEventListener('change', function() {
+                const current = localStorage.getItem('gendarmerie-theme') || 'system';
+                if (current === 'system') {
+                    applyTheme('system');
+                }
+            });
+
             themeRadios.forEach(radio => {
                 radio.addEventListener('change', function() {
                     if (this.checked) {
                         applyTheme(this.value);
-                        // Fermer la modale
-                        const modal = document.getElementById('fr-theme-modal');
-                        if (modal && modal.close) {
-                            modal.close();
-                        }
+                        themeModal.classList.remove('open');
                     }
                 });
             });
 
+            themeToggleBtn.addEventListener('click', function() {
+                themeModal.classList.toggle('open');
+            });
+            themeModalClose.addEventListener('click', function() {
+                themeModal.classList.remove('open');
+            });
+            themeModal.addEventListener('click', function(e) {
+                if (e.target === this) themeModal.classList.remove('open');
+            });
+
             // ============================================================
-            // 3. PAGES (contenu statique intégré)
+            // PAGES (fallback intégré)
             // ============================================================
-            const pages = {
+            const fallbackPages = {
 
                 accueil: `
-                    <div class="fr-container">
-                        <div class="hero">
-                            <h1>Bienvenue sur le portail <span>Roleplay</span></h1>
-                            <p>Site non officiel à but ludique et éducatif. Découvrez l'univers de la Gendarmerie Nationale à travers nos pages.</p>
-                            <div class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
-                                <button class="fr-btn" data-page="presentation">Découvrir</button>
-                                <button class="fr-btn fr-btn--secondary" data-page="recrutement">Recrutement</button>
-                            </div>
+                    <div class="hero">
+                        <h1>Bienvenue sur le portail <span>Roleplay</span></h1>
+                        <p>Site non officiel à but ludique et éducatif. Découvrez l'univers de la Gendarmerie Nationale à travers nos pages.</p>
+                        <div class="cta-group">
+                            <button class="btn" data-page="presentation">Découvrir</button>
+                            <button class="btn btn-outline" data-page="recrutement">Recrutement</button>
                         </div>
-
-                        <div class="card-grid">
-                            <div class="fr-card fr-card--sm">
-                                <div class="fr-card__body">
-                                    <div class="fr-card__content">
-                                        <h3 class="fr-card__title">
-                                            <a href="#" data-page="histoire">⚜️ Histoire &amp; Patrimoine</a>
-                                        </h3>
-                                        <p class="fr-card__desc">Plongez dans l'héritage de la Gendarmerie, de la maréchaussée à nos jours.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fr-card fr-card--sm">
-                                <div class="fr-card__body">
-                                    <div class="fr-card__content">
-                                        <h3 class="fr-card__title">
-                                            <a href="#" data-page="missions">🛡️ Nos Missions</a>
-                                        </h3>
-                                        <p class="fr-card__desc">Découvrez les multiples missions qui font la fierté de nos gendarmes.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fr-card fr-card--sm">
-                                <div class="fr-card__body">
-                                    <div class="fr-card__content">
-                                        <h3 class="fr-card__title">
-                                            <a href="#" data-page="international">🌍 À l'international</a>
-                                        </h3>
-                                        <p class="fr-card__desc">La Gendarmerie rayonne au-delà des frontières avec des partenariats solides.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fr-card fr-card--sm">
-                                <div class="fr-card__body">
-                                    <div class="fr-card__content">
-                                        <h3 class="fr-card__title">
-                                            <a href="#" data-page="recrutement">📋 Recrutement</a>
-                                        </h3>
-                                        <p class="fr-card__desc">Rejoignez nos rangs et participez à une aventure humaine exceptionnelle.</p>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3><a href="#" data-page="histoire">⚜️ Histoire &amp; Patrimoine</a></h3>
+                            <p>Plongez dans l'héritage de la Gendarmerie, de la maréchaussée à nos jours.</p>
+                        </div>
+                        <div class="card">
+                            <h3><a href="#" data-page="missions">🛡️ Nos Missions</a></h3>
+                            <p>Découvrez les multiples missions qui font la fierté de nos gendarmes.</p>
+                        </div>
+                        <div class="card">
+                            <h3><a href="#" data-page="international">🌍 À l'international</a></h3>
+                            <p>La Gendarmerie rayonne au-delà des frontières avec des partenariats solides.</p>
+                        </div>
+                        <div class="card">
+                            <h3><a href="#" data-page="recrutement">📋 Recrutement</a></h3>
+                            <p>Rejoignez nos rangs et participez à une aventure humaine exceptionnelle.</p>
                         </div>
                     </div>
                 `,
 
                 presentation: `
-                    <div class="fr-container page-generic">
-                        <div class="fr-card">
+                    <div class="page-generic">
+                        <div class="card-content">
                             <h2>Présentation</h2>
                             <div class="subhead">Découvrez l'institution et ses valeurs</div>
                             <p><strong>La Gendarmerie Nationale</strong> est une force militaire française chargée de missions de police. Elle est subordonnée au ministère de l'Intérieur pour ses missions de sécurité et au ministère des Armées pour ses missions militaires.</p>
@@ -524,8 +874,8 @@
                 `,
 
                 histoire: `
-                    <div class="fr-container page-generic">
-                        <div class="fr-card">
+                    <div class="page-generic">
+                        <div class="card-content">
                             <h2>Histoire et patrimoine</h2>
                             <div class="subhead">Des origines à nos jours</div>
                             <p>La Gendarmerie Nationale puise ses racines dans la <strong>Maréchaussée</strong> créée au XIV<sup>e</sup> siècle. Elle est la plus ancienne institution de police de France.</p>
@@ -536,8 +886,8 @@
                 `,
 
                 missions: `
-                    <div class="fr-container page-generic">
-                        <div class="fr-card">
+                    <div class="page-generic">
+                        <div class="card-content">
                             <h2>Les missions de la Gendarmerie</h2>
                             <div class="subhead">Au service des citoyens</div>
                             <p>Les missions de la Gendarmerie Nationale sont multiples et variées :</p>
@@ -554,8 +904,8 @@
                 `,
 
                 international: `
-                    <div class="fr-container page-generic">
-                        <div class="fr-card">
+                    <div class="page-generic">
+                        <div class="card-content">
                             <h2>À l'international</h2>
                             <div class="subhead">Rayonnement et coopération</div>
                             <p>La Gendarmerie Nationale est présente sur la scène internationale à travers des <strong>missions de coopération</strong>, de <strong>formation</strong> et d'<strong>observation</strong>.</p>
@@ -566,8 +916,8 @@
                 `,
 
                 unites: `
-                    <div class="fr-container page-generic">
-                        <div class="fr-card">
+                    <div class="page-generic">
+                        <div class="card-content">
                             <h2>Nos unités</h2>
                             <div class="subhead">Une organisation au service du territoire</div>
                             <p>La Gendarmerie Nationale est structurée en plusieurs unités spécialisées :</p>
@@ -583,8 +933,8 @@
                 `,
 
                 recrutement: `
-                    <div class="fr-container page-generic">
-                        <div class="fr-card">
+                    <div class="page-generic">
+                        <div class="card-content">
                             <h2>Recrutement</h2>
                             <div class="subhead">Rejoignez la Gendarmerie Nationale</div>
                             <p>La Gendarmerie Nationale recrute chaque année des <strong>milliers de jeunes</strong> motivés, qu'ils soient civils ou militaires.</p>
@@ -601,8 +951,8 @@
                 `,
 
                 offres: `
-                    <div class="fr-container page-generic">
-                        <div class="fr-card">
+                    <div class="page-generic">
+                        <div class="card-content">
                             <h2>Offres d'emploi</h2>
                             <div class="subhead">Postes à pourvoir</div>
                             <p>Découvrez les offres d'emploi actuelles au sein de la Gendarmerie Nationale :</p>
@@ -619,7 +969,7 @@
                 `,
 
                 indisponible: `
-                    <div class="fr-container page-indispo">
+                    <div class="page-indispo">
                         <span class="big-icon">🔧</span>
                         <h2>Page indisponible</h2>
                         <p>Cette section est en cours de construction. Revenez plus tard !</p>
@@ -628,32 +978,72 @@
             };
 
             // ============================================================
-            // 4. NAVIGATION (chargement dynamique)
+            // NAVIGATION – Chargement depuis /pages/public/{name}.html
             // ============================================================
-            let currentPage = 'accueil';
-
             function navigateTo(pageId) {
-                if (!pages[pageId]) {
-                    pageId = 'accueil';
-                }
-                currentPage = pageId;
+                if (!fallbackPages[pageId]) pageId = 'accueil';
 
-                // Charger la page
-                content.innerHTML = pages[pageId] || pages.accueil;
+                const url = `/pages/public/${pageId}.html`;
 
-                // Réattacher les événements sur les liens [data-page] dans le contenu
-                content.querySelectorAll('[data-page]').forEach(el => {
-                    el.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const target = this.getAttribute('data-page');
-                        if (target) {
-                            navigateTo(target);
-                            history.pushState({ page: target }, '', '#' + target);
-                        }
+                fetch(url)
+                    .then(res => {
+                        if (!res.ok) throw new Error('Not found');
+                        return res.text();
+                    })
+                    .then(html => {
+                        content.innerHTML = html;
+                        attachEvents();
+                        updateTitle(pageId);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    })
+                    .catch(() => {
+                        content.innerHTML = fallbackPages[pageId] || fallbackPages.accueil;
+                        attachEvents();
+                        updateTitle(pageId);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
                     });
+            }
+
+            // ============================================================
+            // ATTACHEMENT DES ÉVÉNEMENTS
+            // ============================================================
+            function attachEvents() {
+                // Liens [data-page]
+                document.querySelectorAll('[data-page]').forEach(el => {
+                    el.removeEventListener('click', handlePageClick);
+                    el.addEventListener('click', handlePageClick);
                 });
 
-                // Mettre à jour le titre
+                // Gestion des sous-menus pour mobile
+                document.querySelectorAll('.menu-bar .dropbtn').forEach(btn => {
+                    btn.removeEventListener('click', handleDropbtnClick);
+                    btn.addEventListener('click', handleDropbtnClick);
+                });
+            }
+
+            function handlePageClick(e) {
+                e.preventDefault();
+                const page = this.getAttribute('data-page');
+                if (page) {
+                    navigateTo(page);
+                    history.pushState({ page }, '', '#' + page);
+                }
+            }
+
+            function handleDropbtnClick(e) {
+                e.preventDefault();
+                const parent = this.closest('li');
+                if (!parent) return;
+                const sub = parent.querySelector('.sub-menu');
+                if (sub) {
+                    sub.classList.toggle('open');
+                }
+            }
+
+            // ============================================================
+            // MISE À JOUR DU TITRE
+            // ============================================================
+            function updateTitle(pageId) {
                 const titles = {
                     accueil: 'Accueil · Gendarmerie Nationale RP',
                     presentation: 'Présentation · Gendarmerie Nationale RP',
@@ -666,34 +1056,10 @@
                     indisponible: 'Indisponible · Gendarmerie Nationale RP'
                 };
                 document.title = titles[pageId] || 'Gendarmerie Nationale · Roleplay';
-
-                // Scroll en haut
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                // Fermer le menu mobile si ouvert
-                const menuModal = document.getElementById('modal-menu');
-                if (menuModal && menuModal.classList.contains('fr-modal--opened')) {
-                    const closeBtn = menuModal.querySelector('.fr-link--close');
-                    if (closeBtn) closeBtn.click();
-                }
             }
 
             // ============================================================
-            // 5. GESTION DES CLICS SUR LES LIENS DU MENU
-            // ============================================================
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const page = this.getAttribute('data-page');
-                    if (page) {
-                        navigateTo(page);
-                        history.pushState({ page: page }, '', '#' + page);
-                    }
-                });
-            });
-
-            // ============================================================
-            // 6. RECHERCHE
+            // RECHERCHE
             // ============================================================
             function performSearch(query) {
                 const q = query.trim().toLowerCase();
@@ -729,15 +1095,8 @@
                     navigateTo(found);
                     history.pushState({ page: found }, '', '#' + found);
                     searchInput.value = '';
-                    // Fermer la modale de recherche
-                    const searchModal = document.getElementById('modal-search');
-                    if (searchModal && searchModal.classList.contains('fr-modal--opened')) {
-                        const closeBtn = searchModal.querySelector('.fr-btn--close');
-                        if (closeBtn) closeBtn.click();
-                    }
                 } else {
-                    // Recherche approximative dans les noms de pages
-                    const keys = Object.keys(pages);
+                    const keys = Object.keys(fallbackPages);
                     for (const k of keys) {
                         if (k.includes(q) || q.includes(k)) {
                             navigateTo(k);
@@ -754,7 +1113,6 @@
                 e.preventDefault();
                 performSearch(searchInput.value);
             });
-
             searchInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -763,7 +1121,7 @@
             });
 
             // ============================================================
-            // 7. GESTION DU POPSTATE (retour/avant)
+            // POPSTATE
             // ============================================================
             window.addEventListener('popstate', function(e) {
                 const state = e.state;
@@ -775,10 +1133,10 @@
             });
 
             // ============================================================
-            // 8. DÉMARRAGE
+            // DÉMARRAGE
             // ============================================================
             const hash = window.location.hash.replace('#', '');
-            const startPage = (hash && pages[hash]) ? hash : 'accueil';
+            const startPage = (hash && fallbackPages[hash]) ? hash : 'accueil';
             navigateTo(startPage);
             if (startPage !== 'accueil') {
                 history.replaceState({ page: startPage }, '', '#' + startPage);
@@ -786,32 +1144,10 @@
 
             loadStoredTheme();
 
-            // ============================================================
-            // 9. CORRECTION : réattacher les clics sur les liens du menu
-            //    après le chargement initial (car DSFR peut les réinitialiser)
-            // ============================================================
-            // On réattache après un petit délai pour laisser DSFR s'initialiser
-            setTimeout(() => {
-                document.querySelectorAll('[data-page]').forEach(link => {
-                    // Éviter les doublons
-                    link.removeEventListener('click', handleMenuClick);
-                    link.addEventListener('click', handleMenuClick);
-                });
-            }, 100);
-
-            function handleMenuClick(e) {
-                e.preventDefault();
-                const page = this.getAttribute('data-page');
-                if (page) {
-                    navigateTo(page);
-                    history.pushState({ page: page }, '', '#' + page);
-                }
-            }
-
-            // Réattacher aussi après chaque navigation (déjà fait dans navigateTo)
+            // Attacher les événements après un court délai
+            setTimeout(attachEvents, 100);
 
         })();
     </script>
-
 </body>
 </html>
