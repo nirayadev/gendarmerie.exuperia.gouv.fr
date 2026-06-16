@@ -8,62 +8,53 @@
     <!-- Police Marianne (officielle) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 (icônes vectorielles) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
     <style>
         /* ============================================================
            VARIABLES DSFR
            ============================================================ */
         :root {
-            /* Bleu France */
-            --bf500: #000091;
-            --bf500-hover: #0000b3;
-            --bf500-active: #00006b;
-            /* Rouge Marianne */
-            --rm500: #e1000f;
-            --rm500-hover: #b8000c;
-            /* Gris */
-            --g50: #fafafa;
-            --g100: #f0f2f5;
-            --g200: #e3e6ea;
-            --g300: #cdd0d5;
-            --g400: #8a8f99;
-            --g600: #5a5f69;
-            --g700: #3a3f4a;
-            --g800: #1e1e24;
-            /* Thème clair (par défaut) */
+            --blue-france: #000091;
+            --blue-france-hover: #0000b3;
+            --red-marianne: #e1000f;
+            --white: #ffffff;
+            --grey-50: #f5f5f5;
+            --grey-100: #ededed;
+            --grey-200: #d4d4d4;
+            --grey-300: #b8b8b8;
+            --grey-600: #5a5a5a;
+            --grey-800: #1e1e1e;
+            --text-primary: #1e1e1e;
+            --text-secondary: #5a5a5a;
             --bg-body: #ffffff;
             --bg-header: #ffffff;
-            --bg-menu: #ffffff;
             --bg-card: #ffffff;
-            --bg-hero: var(--g100);
-            --text-primary: var(--g800);
-            --text-secondary: var(--g600);
-            --border-color: var(--g300);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.10);
+            --bg-hero: #f5f5f5;
+            --border-color: #d4d4d4;
+            --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
             --radius: 4px;
             --radius-lg: 8px;
             --transition: 0.2s ease;
             --font: 'Marianne', 'Segoe UI', Arial, sans-serif;
         }
 
-        /* ============================================================
-           THÈME SOMBRE
-           ============================================================ */
         [data-theme="dark"] {
             --bg-body: #1a1a1a;
             --bg-header: #222222;
-            --bg-menu: #222222;
             --bg-card: #2a2a2a;
             --bg-hero: #2a2a2a;
             --text-primary: #f0f0f0;
-            --text-secondary: #aaaaaa;
+            --text-secondary: #bbbbbb;
             --border-color: #444444;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
         }
 
         /* ============================================================
@@ -94,7 +85,7 @@
         }
 
         a {
-            color: var(--bf500);
+            color: var(--blue-france);
             text-decoration: none;
         }
         a:hover {
@@ -102,12 +93,12 @@
         }
 
         /* ============================================================
-           TOPBAR
+           TOPBAR (style DSFR)
            ============================================================ */
         .topbar {
             background: var(--bg-header);
-            border-bottom: 3px solid var(--bf500);
-            padding: 0.75rem 1.5rem;
+            border-bottom: 3px solid var(--blue-france);
+            padding: 0.6rem 1.5rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -115,7 +106,7 @@
             max-width: 1280px;
             margin: 0 auto;
             width: 100%;
-            transition: background var(--transition), border-color var(--transition);
+            transition: background var(--transition);
             gap: 0.5rem 1rem;
         }
 
@@ -126,42 +117,47 @@
             flex-wrap: wrap;
         }
 
-        /* Logo "RÉPUBLIQUE FRANÇAISE" */
-        .logo-state {
+        /* Blason RF (SVG inline) */
+        .logo-rf {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            line-height: 1.1;
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: var(--bf500);
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
+            gap: 0.5rem;
             padding-right: 1rem;
             border-right: 1px solid var(--border-color);
         }
-        .logo-state .republique {
+        .logo-rf svg {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+        }
+        .logo-rf .rf-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: var(--blue-france);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .logo-rf .rf-text .rep {
             font-weight: 300;
         }
-        .logo-state .francaise {
+        .logo-rf .rf-text .fra {
             font-weight: 700;
         }
-        .logo-state .ministere {
-            font-size: 0.5rem;
+        .logo-rf .rf-text .min {
+            font-size: 0.45rem;
             font-weight: 400;
             color: var(--text-secondary);
             text-transform: none;
             letter-spacing: 0.2px;
         }
 
-        .site-title {
-            display: flex;
-            flex-direction: column;
-        }
         .site-title h1 {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            color: var(--bf500);
+            color: var(--blue-france);
             margin: 0;
             line-height: 1.2;
             display: flex;
@@ -174,22 +170,22 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            background: var(--rm500);
+            background: var(--red-marianne);
             color: #fff;
             padding: 2px 12px;
             border-radius: 20px;
-            display: inline-block;
         }
         .site-title .tagline {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-secondary);
             margin: 0;
+            font-weight: 400;
         }
 
         .topbar-right {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
         }
 
@@ -203,44 +199,44 @@
             transition: var(--transition);
         }
         .search-box:focus-within {
-            border-color: var(--bf500);
-            box-shadow: 0 0 0 3px rgba(0, 0, 145, 0.15);
+            border-color: var(--blue-france);
+            box-shadow: 0 0 0 3px rgba(0, 0, 145, 0.12);
         }
         .search-box input {
             border: none;
             background: transparent;
-            padding: 0.4rem 0.2rem;
-            font-size: 0.85rem;
+            padding: 0.35rem 0.2rem;
+            font-size: 0.8rem;
             color: var(--text-primary);
             outline: none;
-            width: 150px;
+            width: 140px;
             font-family: inherit;
         }
         .search-box input::placeholder {
-            color: var(--g400);
+            color: var(--grey-300);
         }
         .search-box button {
-            background: var(--bf500);
+            background: var(--blue-france);
             border: none;
             color: #fff;
-            padding: 0.4rem 1.2rem;
+            padding: 0.35rem 1.2rem;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: var(--transition);
             font-family: inherit;
             white-space: nowrap;
         }
         .search-box button:hover {
-            background: var(--bf500-hover);
+            background: var(--blue-france-hover);
         }
 
         .theme-btn {
             background: transparent;
             border: 1px solid var(--border-color);
             border-radius: 40px;
-            padding: 0.3rem 1rem;
+            padding: 0.3rem 0.9rem;
             font-size: 0.8rem;
             cursor: pointer;
             color: var(--text-primary);
@@ -248,31 +244,31 @@
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.4rem;
             white-space: nowrap;
         }
         .theme-btn:hover {
-            background: var(--g100);
+            background: var(--grey-100);
         }
 
         /* ============================================================
            MENU
            ============================================================ */
         .menu-bar {
-            background: var(--bg-menu);
+            background: var(--bg-header);
             border-bottom: 1px solid var(--border-color);
             padding: 0 1.5rem;
             max-width: 1280px;
             margin: 0 auto;
             width: 100%;
-            transition: background var(--transition), border-color var(--transition);
+            transition: background var(--transition);
         }
 
         .menu-bar nav {
             display: flex;
             flex-wrap: wrap;
             gap: 0.25rem;
-            padding: 0.3rem 0;
+            padding: 0.2rem 0;
             list-style: none;
         }
 
@@ -283,7 +279,9 @@
 
         .menu-bar .menu-item>a,
         .menu-bar .menu-item>.dropbtn {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
             padding: 0.5rem 1rem;
             font-size: 0.85rem;
             font-weight: 600;
@@ -299,17 +297,20 @@
         }
         .menu-bar .menu-item>a:hover,
         .menu-bar .menu-item>.dropbtn:hover {
-            background: var(--bf500);
+            background: var(--blue-france);
             color: #fff;
             text-decoration: none;
         }
+        .menu-bar .menu-item>a:hover i,
+        .menu-bar .menu-item>.dropbtn:hover i {
+            color: #fff;
+        }
 
         .menu-bar .menu-item .home-link {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             padding: 0.35rem 0.7rem;
         }
 
-        /* Sous-menu */
         .menu-bar .sub-menu {
             display: none;
             position: absolute;
@@ -330,8 +331,10 @@
             width: 100%;
         }
         .menu-bar .sub-menu a {
-            display: block;
-            padding: 0.5rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.45rem 1.2rem;
             font-weight: 400;
             font-size: 0.82rem;
             color: var(--text-primary);
@@ -340,11 +343,18 @@
             transition: var(--transition);
             text-decoration: none;
         }
+        .menu-bar .sub-menu a i {
+            width: 1.1rem;
+            color: var(--grey-600);
+        }
         .menu-bar .sub-menu a:hover {
-            background: var(--g100);
-            border-left-color: var(--rm500);
-            color: var(--bf500);
+            background: var(--grey-50);
+            border-left-color: var(--red-marianne);
+            color: var(--blue-france);
             text-decoration: none;
+        }
+        .menu-bar .sub-menu a:hover i {
+            color: var(--blue-france);
         }
 
         .menu-bar .menu-item:hover .sub-menu {
@@ -363,13 +373,13 @@
             max-width: 1280px;
             margin: 0 auto;
             width: 100%;
-            animation: fadeUp 0.3s ease;
+            animation: fadeUp 0.25s ease;
         }
 
         @keyframes fadeUp {
             0% {
                 opacity: 0;
-                transform: translateY(12px);
+                transform: translateY(8px);
             }
             100% {
                 opacity: 1;
@@ -381,23 +391,23 @@
         .hero {
             background: var(--bg-hero);
             border-radius: var(--radius-lg);
-            padding: 3rem 3rem;
+            padding: 2.5rem 3rem;
             margin-bottom: 2.5rem;
-            border-left: 5px solid var(--bf500);
+            border-left: 5px solid var(--blue-france);
             transition: background var(--transition);
         }
         .hero h1 {
-            color: var(--bf500);
-            font-size: 2.2rem;
+            color: var(--blue-france);
+            font-size: 2rem;
             font-weight: 700;
             margin: 0 0 0.25rem 0;
         }
         .hero h1 span {
-            color: var(--rm500);
+            color: var(--red-marianne);
         }
         .hero p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             max-width: 640px;
             margin: 0 0 1.5rem 0;
             line-height: 1.7;
@@ -408,28 +418,31 @@
             gap: 0.75rem;
         }
         .hero .cta-group .btn {
-            padding: 0.7rem 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.8rem;
             border-radius: var(--radius);
             font-weight: 600;
             font-size: 0.9rem;
             border: none;
             cursor: pointer;
-            background: var(--bf500);
+            background: var(--blue-france);
             color: #fff;
             font-family: inherit;
             transition: var(--transition);
         }
         .hero .cta-group .btn:hover {
-            background: var(--bf500-hover);
+            background: var(--blue-france-hover);
             transform: translateY(-2px);
         }
         .hero .cta-group .btn-outline {
             background: transparent;
-            border: 2px solid var(--bf500);
-            color: var(--bf500);
+            border: 2px solid var(--blue-france);
+            color: var(--blue-france);
         }
         .hero .cta-group .btn-outline:hover {
-            background: var(--bf500);
+            background: var(--blue-france);
             color: #fff;
         }
 
@@ -449,19 +462,20 @@
             box-shadow: var(--shadow-sm);
         }
         .card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-4px);
             box-shadow: var(--shadow-md);
-            border-color: var(--bf500);
+            border-color: var(--blue-france);
         }
         .card .card-icon {
-            font-size: 2.2rem;
+            font-size: 2rem;
+            color: var(--blue-france);
             display: block;
             margin-bottom: 0.6rem;
         }
         .card h3 {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 700;
-            color: var(--bf500);
+            color: var(--blue-france);
             margin: 0 0 0.3rem 0;
         }
         .card h3 a {
@@ -485,26 +499,33 @@
             border-radius: var(--radius-lg);
             padding: 2.5rem 3rem;
             box-shadow: var(--shadow-sm);
-            transition: background var(--transition), border-color var(--transition);
+            transition: background var(--transition);
         }
         .page-generic .card-content h2 {
-            color: var(--bf500);
+            color: var(--blue-france);
             font-size: 1.8rem;
             font-weight: 700;
             margin: 0 0 0.2rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .page-generic .card-content h2 i {
+            color: var(--red-marianne);
+            font-size: 1.6rem;
         }
         .page-generic .card-content h2::after {
             content: '';
             display: block;
             width: 60px;
             height: 3px;
-            background: var(--rm500);
-            margin-top: 0.5rem;
+            background: var(--red-marianne);
+            margin-top: 0.4rem;
         }
         .page-generic .card-content .subhead {
             color: var(--text-secondary);
-            font-size: 1.05rem;
-            margin: 0.3rem 0 1.5rem 0;
+            font-size: 1rem;
+            margin: 0.2rem 0 1.5rem 0;
         }
         .page-generic .card-content p {
             margin: 0 0 0.8rem 0;
@@ -521,7 +542,7 @@
             color: var(--text-primary);
         }
         .page-generic .card-content strong {
-            color: var(--bf500);
+            color: var(--blue-france);
         }
 
         /* --- 404 --- */
@@ -530,49 +551,52 @@
             padding: 4rem 1rem;
         }
         .page-404 .big-icon {
-            font-size: 5rem;
+            font-size: 4rem;
+            color: var(--grey-300);
             display: block;
             margin-bottom: 1rem;
         }
         .page-404 h2 {
-            color: var(--bf500);
-            font-size: 2.2rem;
+            color: var(--blue-france);
+            font-size: 2rem;
             margin: 0 0 0.5rem 0;
         }
         .page-404 p {
             color: var(--text-secondary);
             max-width: 450px;
             margin: 0 auto 1.5rem;
-            font-size: 1.05rem;
         }
         .page-404 .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 0.7rem 2rem;
             border-radius: var(--radius);
             font-weight: 600;
             font-size: 0.9rem;
             border: none;
             cursor: pointer;
-            background: var(--bf500);
+            background: var(--blue-france);
             color: #fff;
             font-family: inherit;
             transition: var(--transition);
         }
         .page-404 .btn:hover {
-            background: var(--bf500-hover);
+            background: var(--blue-france-hover);
         }
 
-        /* --- Indisponible --- */
         .page-indispo {
             text-align: center;
             padding: 4rem 1rem;
         }
         .page-indispo .big-icon {
-            font-size: 4rem;
+            font-size: 3.5rem;
+            color: var(--grey-300);
             display: block;
             margin-bottom: 1rem;
         }
         .page-indispo h2 {
-            color: var(--bf500);
+            color: var(--blue-france);
             font-size: 1.8rem;
             margin: 0 0 0.5rem 0;
         }
@@ -592,7 +616,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(4px);
             z-index: 9999;
             justify-content: center;
@@ -609,12 +633,12 @@
             width: 92%;
             box-shadow: var(--shadow-lg);
             border: 1px solid var(--border-color);
-            animation: modalIn 0.25s ease;
+            animation: modalIn 0.2s ease;
         }
         @keyframes modalIn {
             0% {
                 opacity: 0;
-                transform: scale(0.96) translateY(12px);
+                transform: scale(0.96) translateY(10px);
             }
             100% {
                 opacity: 1;
@@ -633,11 +657,11 @@
             line-height: 1;
         }
         .theme-modal .modal-box .close-btn:hover {
-            color: var(--rm500);
+            color: var(--red-marianne);
         }
         .theme-modal .modal-box h2 {
-            color: var(--bf500);
-            font-size: 1.3rem;
+            color: var(--blue-france);
+            font-size: 1.2rem;
             font-weight: 700;
             margin: 0 0 0.5rem 0;
         }
@@ -650,18 +674,18 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.6rem 0.8rem;
+            padding: 0.5rem 0.8rem;
             border-radius: var(--radius);
             cursor: pointer;
             transition: var(--transition);
             border: 1px solid transparent;
         }
         .theme-modal .modal-box .theme-option:hover {
-            background: var(--g100);
+            background: var(--grey-100);
             border-color: var(--border-color);
         }
         .theme-modal .modal-box .theme-option input[type="radio"] {
-            accent-color: var(--bf500);
+            accent-color: var(--blue-france);
             width: 1.1rem;
             height: 1.1rem;
             flex-shrink: 0;
@@ -722,14 +746,6 @@
             .menu-bar .menu-item .sub-menu.open {
                 display: flex !important;
             }
-            .menu-bar .menu-item>.dropbtn {
-                padding: 0.4rem 0.6rem;
-                font-size: 0.8rem;
-            }
-            .menu-bar .menu-item>a {
-                padding: 0.4rem 0.6rem;
-                font-size: 0.8rem;
-            }
         }
 
         @media (max-width: 540px) {
@@ -738,51 +754,33 @@
                 align-items: center;
                 text-align: center;
             }
-            .logo-state {
+            .logo-rf {
                 border-right: none;
                 padding-right: 0;
-                flex-direction: row;
-                gap: 0.3rem;
-                flex-wrap: wrap;
-                justify-content: center;
             }
             .site-title h1 {
                 font-size: 1rem;
                 justify-content: center;
             }
-            .site-title .tagline {
-                text-align: center;
-            }
             .search-box input {
                 width: 80px;
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
             .search-box button {
-                font-size: 0.7rem;
-                padding: 0.3rem 0.6rem;
+                font-size: 0.65rem;
+                padding: 0.25rem 0.6rem;
             }
             .hero {
                 padding: 1.5rem 1rem;
             }
             .hero h1 {
-                font-size: 1.5rem;
-            }
-            .hero p {
-                font-size: 0.95rem;
+                font-size: 1.4rem;
             }
             .card-grid {
                 grid-template-columns: 1fr;
             }
             .page-generic .card-content {
                 padding: 1.5rem 1rem;
-            }
-            .menu-bar nav {
-                gap: 0.1rem;
-            }
-            .menu-bar .menu-item>.dropbtn,
-            .menu-bar .menu-item>a {
-                font-size: 0.7rem;
-                padding: 0.3rem 0.5rem;
             }
         }
     </style>
@@ -795,10 +793,19 @@
     ============================================================ -->
     <header class="topbar" role="banner">
         <div class="topbar-left">
-            <div class="logo-state">
-                <span class="republique">RÉPUBLIQUE</span>
-                <span class="francaise">FRANÇAISE</span>
-                <span class="ministere">Ministère de l'intérieur</span>
+            <!-- Logo RF avec SVG inline (plus besoin d'image externe) -->
+            <div class="logo-rf">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="8" height="24" fill="#000091" />
+                    <rect x="8" y="0" width="8" height="24" fill="#ffffff" />
+                    <rect x="16" y="0" width="8" height="24" fill="#e1000f" />
+                    <text x="12" y="17" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#000091" text-anchor="middle">RF</text>
+                </svg>
+                <span class="rf-text">
+                    <span class="rep">RÉPUBLIQUE</span>
+                    <span class="fra">FRANÇAISE</span>
+                    <span class="min">Ministère de l'intérieur</span>
+                </span>
             </div>
 
             <div class="site-title">
@@ -813,10 +820,10 @@
         <div class="topbar-right">
             <div class="search-box">
                 <input type="search" id="searchInput" placeholder="Rechercher..." aria-label="Rechercher" />
-                <button id="searchBtn">Rechercher</button>
+                <button id="searchBtn"><i class="fas fa-search"></i> OK</button>
             </div>
             <button class="theme-btn" id="themeToggleBtn">
-                <span id="themeIcon">☀️</span> Thème
+                <i class="fas fa-palette"></i> Thème
             </button>
         </div>
     </header>
@@ -827,38 +834,38 @@
     <div class="menu-bar" role="navigation" aria-label="Navigation principale">
         <nav>
             <li class="menu-item">
-                <a href="#" data-page="accueil" class="home-link" title="Accueil">🏠</a>
+                <a href="#" data-page="accueil" class="home-link" title="Accueil"><i class="fas fa-home"></i></a>
             </li>
 
             <li class="menu-item">
-                <button class="dropbtn" aria-expanded="false">Présentation ▾</button>
+                <button class="dropbtn" aria-expanded="false"><i class="fas fa-info-circle"></i> Présentation <i class="fas fa-chevron-down" style="font-size:0.6rem;margin-left:0.2rem;"></i></button>
                 <ul class="sub-menu">
-                    <li><a href="#" data-page="presentation">Présentation</a></li>
-                    <li><a href="#" data-page="histoire">Histoire et patrimoine</a></li>
-                    <li><a href="#" data-page="missions">Les missions de la gendarmerie</a></li>
-                    <li><a href="#" data-page="international">À l'international</a></li>
+                    <li><a href="#" data-page="presentation"><i class="fas fa-building"></i> Présentation</a></li>
+                    <li><a href="#" data-page="histoire"><i class="fas fa-landmark"></i> Histoire et patrimoine</a></li>
+                    <li><a href="#" data-page="missions"><i class="fas fa-shield-alt"></i> Les missions</a></li>
+                    <li><a href="#" data-page="international"><i class="fas fa-globe-europe"></i> À l'international</a></li>
                 </ul>
             </li>
 
             <li class="menu-item">
-                <button class="dropbtn" aria-expanded="false">Organisation ▾</button>
+                <button class="dropbtn" aria-expanded="false"><i class="fas fa-sitemap"></i> Organisation <i class="fas fa-chevron-down" style="font-size:0.6rem;margin-left:0.2rem;"></i></button>
                 <ul class="sub-menu">
-                    <li><a href="#" data-page="unites">Nos unités</a></li>
+                    <li><a href="#" data-page="unites"><i class="fas fa-people-group"></i> Nos unités</a></li>
                 </ul>
             </li>
 
             <li class="menu-item">
-                <button class="dropbtn" aria-expanded="false">La Gendarmerie Recrute ▾</button>
+                <button class="dropbtn" aria-expanded="false"><i class="fas fa-user-plus"></i> Recrutement <i class="fas fa-chevron-down" style="font-size:0.6rem;margin-left:0.2rem;"></i></button>
                 <ul class="sub-menu">
-                    <li><a href="#" data-page="recrutement">Recrutement</a></li>
-                    <li><a href="#" data-page="offres">Offres d'emploi</a></li>
+                    <li><a href="#" data-page="recrutement"><i class="fas fa-graduation-cap"></i> Recrutement</a></li>
+                    <li><a href="#" data-page="offres"><i class="fas fa-briefcase"></i> Offres d'emploi</a></li>
                 </ul>
             </li>
 
             <li class="menu-item">
-                <button class="dropbtn" aria-expanded="false">Nos sites ▾</button>
+                <button class="dropbtn" aria-expanded="false"><i class="fas fa-link"></i> Nos sites <i class="fas fa-chevron-down" style="font-size:0.6rem;margin-left:0.2rem;"></i></button>
                 <ul class="sub-menu">
-                    <li><a href="#" data-page="indisponible">Indisponible</a></li>
+                    <li><a href="#" data-page="indisponible"><i class="fas fa-tools"></i> Indisponible</a></li>
                 </ul>
             </li>
         </nav>
@@ -876,21 +883,21 @@
     ============================================================ -->
     <div class="theme-modal" id="themeModal">
         <div class="modal-box">
-            <button class="close-btn" id="themeModalClose" aria-label="Fermer">✕</button>
-            <h2>Paramètres d'affichage</h2>
+            <button class="close-btn" id="themeModalClose" aria-label="Fermer"><i class="fas fa-times"></i></button>
+            <h2><i class="fas fa-palette" style="color:var(--red-marianne);"></i> Paramètres d'affichage</h2>
             <p class="desc">Choisissez un thème pour personnaliser l'apparence du site.</p>
 
             <div class="theme-option">
                 <input type="radio" id="theme-light" name="theme" value="light" />
-                <label for="theme-light">☀️ Thème clair</label>
+                <label for="theme-light"><i class="fas fa-sun"></i> Thème clair</label>
             </div>
             <div class="theme-option">
                 <input type="radio" id="theme-dark" name="theme" value="dark" />
-                <label for="theme-dark">🌙 Thème sombre</label>
+                <label for="theme-dark"><i class="fas fa-moon"></i> Thème sombre</label>
             </div>
             <div class="theme-option">
                 <input type="radio" id="theme-system" name="theme" value="system" checked />
-                <label for="theme-system">🖥️ Système</label>
+                <label for="theme-system"><i class="fas fa-desktop"></i> Système</label>
                 <span class="hint">Utilise les paramètres système.</span>
             </div>
         </div>
@@ -912,7 +919,6 @@
             const themeModal = document.getElementById('themeModal');
             const themeModalClose = document.getElementById('themeModalClose');
             const themeToggleBtn = document.getElementById('themeToggleBtn');
-            const themeIcon = document.getElementById('themeIcon');
             const themeRadios = document.querySelectorAll('input[name="theme"]');
 
             // ============================================================
@@ -922,15 +928,12 @@
                 const html = document.documentElement;
                 if (mode === 'light') {
                     html.setAttribute('data-theme', 'light');
-                    themeIcon.textContent = '☀️';
                 } else if (mode === 'dark') {
                     html.setAttribute('data-theme', 'dark');
-                    themeIcon.textContent = '🌙';
                 } else {
                     html.removeAttribute('data-theme');
                     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                     html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-                    themeIcon.textContent = prefersDark ? '🌙' : '☀️';
                 }
                 themeRadios.forEach(r => r.checked = (r.value === mode));
                 localStorage.setItem('gendarmerie-theme', mode);
@@ -963,7 +966,7 @@
             });
 
             // ============================================================
-            // PAGES (fallback)
+            // PAGES (fallback avec icônes)
             // ============================================================
             const fallbackPages = {
 
@@ -972,28 +975,28 @@
                         <h1>Bienvenue sur le portail <span>Roleplay</span></h1>
                         <p>Site non officiel à but ludique et éducatif. Découvrez l'univers de la Gendarmerie Nationale à travers nos pages.</p>
                         <div class="cta-group">
-                            <button class="btn" data-page="presentation">Découvrir</button>
-                            <button class="btn btn-outline" data-page="recrutement">Recrutement</button>
+                            <button class="btn" data-page="presentation"><i class="fas fa-arrow-right"></i> Découvrir</button>
+                            <button class="btn btn-outline" data-page="recrutement"><i class="fas fa-user-plus"></i> Recrutement</button>
                         </div>
                     </div>
                     <div class="card-grid">
                         <div class="card">
-                            <span class="card-icon">⚜️</span>
+                            <i class="fas fa-landmark card-icon"></i>
                             <h3><a href="#" data-page="histoire">Histoire &amp; Patrimoine</a></h3>
                             <p>Plongez dans l'héritage de la Gendarmerie, de la maréchaussée à nos jours.</p>
                         </div>
                         <div class="card">
-                            <span class="card-icon">🛡️</span>
+                            <i class="fas fa-shield-alt card-icon"></i>
                             <h3><a href="#" data-page="missions">Nos Missions</a></h3>
                             <p>Découvrez les multiples missions qui font la fierté de nos gendarmes.</p>
                         </div>
                         <div class="card">
-                            <span class="card-icon">🌍</span>
+                            <i class="fas fa-globe-europe card-icon"></i>
                             <h3><a href="#" data-page="international">À l'international</a></h3>
                             <p>La Gendarmerie rayonne au-delà des frontières avec des partenariats solides.</p>
                         </div>
                         <div class="card">
-                            <span class="card-icon">📋</span>
+                            <i class="fas fa-user-graduate card-icon"></i>
                             <h3><a href="#" data-page="recrutement">Recrutement</a></h3>
                             <p>Rejoignez nos rangs et participez à une aventure humaine exceptionnelle.</p>
                         </div>
@@ -1003,7 +1006,7 @@
                 presentation: `
                     <div class="page-generic">
                         <div class="card-content">
-                            <h2>Présentation</h2>
+                            <h2><i class="fas fa-info-circle"></i> Présentation</h2>
                             <div class="subhead">Découvrez l'institution et ses valeurs</div>
                             <p><strong>La Gendarmerie Nationale</strong> est une force militaire française chargée de missions de police. Elle est subordonnée au ministère de l'Intérieur pour ses missions de sécurité et au ministère des Armées pour ses missions militaires.</p>
                             <p>Présente sur tout le territoire, elle assure la sécurité des citoyens, la lutte contre la délinquance, le maintien de l'ordre et participe à la défense nationale.</p>
@@ -1015,7 +1018,7 @@
                 histoire: `
                     <div class="page-generic">
                         <div class="card-content">
-                            <h2>Histoire et patrimoine</h2>
+                            <h2><i class="fas fa-landmark"></i> Histoire et patrimoine</h2>
                             <div class="subhead">Des origines à nos jours</div>
                             <p>La Gendarmerie Nationale puise ses racines dans la <strong>Maréchaussée</strong> créée au XIV<sup>e</sup> siècle. Elle est la plus ancienne institution de police de France.</p>
                             <p>En 1791, la Maréchaussée devient la Gendarmerie Nationale. Depuis, elle n'a cessé d'évoluer pour s'adapter aux défis de chaque époque.</p>
@@ -1027,7 +1030,7 @@
                 missions: `
                     <div class="page-generic">
                         <div class="card-content">
-                            <h2>Les missions de la Gendarmerie</h2>
+                            <h2><i class="fas fa-shield-alt"></i> Les missions de la Gendarmerie</h2>
                             <div class="subhead">Au service des citoyens</div>
                             <p>Les missions de la Gendarmerie Nationale sont multiples et variées :</p>
                             <ul>
@@ -1045,7 +1048,7 @@
                 international: `
                     <div class="page-generic">
                         <div class="card-content">
-                            <h2>À l'international</h2>
+                            <h2><i class="fas fa-globe-europe"></i> À l'international</h2>
                             <div class="subhead">Rayonnement et coopération</div>
                             <p>La Gendarmerie Nationale est présente sur la scène internationale à travers des <strong>missions de coopération</strong>, de <strong>formation</strong> et d'<strong>observation</strong>.</p>
                             <p>Elle entretient des partenariats privilégiés avec de nombreuses forces de sécurité à travers le monde, notamment en Europe, en Afrique et au Moyen-Orient.</p>
@@ -1057,7 +1060,7 @@
                 unites: `
                     <div class="page-generic">
                         <div class="card-content">
-                            <h2>Nos unités</h2>
+                            <h2><i class="fas fa-people-group"></i> Nos unités</h2>
                             <div class="subhead">Une organisation au service du territoire</div>
                             <p>La Gendarmerie Nationale est structurée en plusieurs unités spécialisées :</p>
                             <ul>
@@ -1074,7 +1077,7 @@
                 recrutement: `
                     <div class="page-generic">
                         <div class="card-content">
-                            <h2>Recrutement</h2>
+                            <h2><i class="fas fa-user-graduate"></i> Recrutement</h2>
                             <div class="subhead">Rejoignez la Gendarmerie Nationale</div>
                             <p>La Gendarmerie Nationale recrute chaque année des <strong>milliers de jeunes</strong> motivés, qu'ils soient civils ou militaires.</p>
                             <p>Les concours sont ouverts à différents niveaux :</p>
@@ -1092,7 +1095,7 @@
                 offres: `
                     <div class="page-generic">
                         <div class="card-content">
-                            <h2>Offres d'emploi</h2>
+                            <h2><i class="fas fa-briefcase"></i> Offres d'emploi</h2>
                             <div class="subhead">Postes à pourvoir</div>
                             <p>Découvrez les offres d'emploi actuelles au sein de la Gendarmerie Nationale :</p>
                             <ul>
@@ -1109,7 +1112,7 @@
 
                 indisponible: `
                     <div class="page-indispo">
-                        <span class="big-icon">🔧</span>
+                        <i class="fas fa-tools big-icon"></i>
                         <h2>Page indisponible</h2>
                         <p>Cette section est en cours de construction. Revenez plus tard !</p>
                     </div>
@@ -1117,10 +1120,10 @@
 
                 '404': `
                     <div class="page-404">
-                        <span class="big-icon">🔍</span>
+                        <i class="fas fa-search big-icon"></i>
                         <h2>Page non trouvée</h2>
                         <p>Désolé, la page que vous recherchez n'existe pas ou a été déplacée.</p>
-                        <button class="btn" data-page="accueil">Retourner à l'accueil</button>
+                        <button class="btn" data-page="accueil"><i class="fas fa-home"></i> Retourner à l'accueil</button>
                     </div>
                 `
             };
@@ -1147,6 +1150,7 @@
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     })
                     .catch(() => {
+                        // Fallback sécurisé
                         content.innerHTML = fallbackPages[pageId] || fallbackPages['404'];
                         attachEvents();
                         updateTitle(pageId === '404' ? '404' : pageId);
