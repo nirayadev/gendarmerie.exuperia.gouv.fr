@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gendarmerie Nationale - Roleplay</title>
+
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --text: #ffffff;
+      --card: #1b1b1b;
+      --accent: orange;
+    }
+
+    body.light {
+      --bg: #f5f5f5;
+      --text: #111;
+      --card: #ffffff;
+      --accent: orange;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: 0.3s;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background: var(--card);
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .left img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+    }
+
+    .title-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title-box h1 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .badge {
+      font-size: 10px;
+      background: orange;
+      color: black;
+      padding: 2px 6px;
+      border-radius: 4px;
+      width: fit-content;
+      margin-top: 3px;
+    }
+
+    .search-theme {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    input[type="search"] {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
+
+    select {
+      padding: 6px;
+      border-radius: 5px;
+    }
+
+    /* MENU BAR */
+    .menu {
+      display: flex;
+      gap: 15px;
+      padding: 10px 20px;
+      background: var(--card);
+      border-bottom: 1px solid #333;
+    }
+
+    .menu a, .dropdown {
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 25px;
+      left: 0;
+      background: var(--card);
+      border: 1px solid #444;
+      padding: 10px;
+      min-width: 200px;
+      z-index: 10;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 5px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background: #333;
+    }
+
+    /* CONTENT */
+    .content {
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="left">
+    <img src="/utils/public/images/index/ministre.png" alt="logo">
+    <div class="title-box">
+      <h1>Gendarmerie Nationale</h1>
+      <div class="badge">SITE NON OFFICIEL - ROLEPLAY</div>
+    </div>
+  </div>
+
+  <div class="search-theme">
+    <input type="search" placeholder="Rechercher...">
+
+    <select id="themeSelect">
+      <option value="system">Système</option>
+      <option value="dark">Sombre</option>
+      <option value="light">Clair</option>
+    </select>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="menu">
+  <a href="index.html">🏠</a>
+
+  <div class="dropdown">
+    Présentation
+    <div class="dropdown-content">
+      <a href="/pages/public/presentation.html">Présentation</a>
+      <a href="/pages/public/histoire.html">Histoire et patrimoine</a>
+      <a href="/pages/public/missions.html">Missions</a>
+      <a href="/pages/public/international.html">International</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    Organisation
+    <div class="dropdown-content">
+      <a href="/pages/public/unites.html">Nos unités</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    Recrutement
+    <div class="dropdown-content">
+      <a href="/pages/public/recrutement.html">Recrutement</a>
+      <a href="/pages/public/offres.html">Offres d'emploi</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    Nos sites
+    <div class="dropdown-content">
+      <a href="#">Indisponible</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <h2>Bienvenue sur le portail RP</h2>
+  <p>Site non officiel à but roleplay de la Gendarmerie Nationale.</p>
+</div>
+
+<script>
+  const themeSelect = document.getElementById("themeSelect");
+  const saved = localStorage.getItem("theme");
+
+  function applyTheme(mode) {
+    if (mode === "light") {
+      document.body.classList.add("light");
+    } else if (mode === "dark") {
+      document.body.classList.remove("light");
+    } else {
+      // system
+      if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+        document.body.classList.add("light");
+      } else {
+        document.body.classList.remove("light");
+      }
+    }
+  }
+
+  applyTheme(saved || "system");
+  themeSelect.value = saved || "system";
+
+  themeSelect.addEventListener("change", (e) => {
+    const val = e.target.value;
+    localStorage.setItem("theme", val);
+    applyTheme(val);
+  });
+</script>
+
+</body>
+</html>
