@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Font Awesome 6 (gratuit) -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
@@ -31,35 +31,38 @@
             --text-primary: #1e1e24;
             --text-secondary: #555a64;
             --bg-body: #ffffff;
-            --bg-header: #ffffff;
-            --bg-menu: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.92);
+            --bg-menu: rgba(255, 255, 255, 0.92);
             --bg-card: #ffffff;
-            --bg-hero: #f6f6f9;
+            --bg-hero: #f0f2f8;
             --border-color: #d1d4d9;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.10);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.10);
+            --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.14);
             --radius: 4px;
-            --radius-lg: 8px;
-            --transition: 0.2s ease;
+            --radius-lg: 10px;
+            --transition: 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --font: 'Marianne', 'Segoe UI', Arial, sans-serif;
             --tricolor-blue: #000091;
             --tricolor-white: #ffffff;
             --tricolor-red: #e1000f;
+            --header-blur: blur(12px);
         }
 
         [data-theme="dark"] {
             --bg-body: #17171c;
-            --bg-header: #22222a;
-            --bg-menu: #22222a;
+            --bg-header: rgba(34, 34, 42, 0.92);
+            --bg-menu: rgba(34, 34, 42, 0.92);
             --bg-card: #2a2a33;
-            --bg-hero: #2a2a33;
+            --bg-hero: #22222b;
             --text-primary: #ededf0;
             --text-secondary: #b0b3ba;
             --border-color: #3e3e48;
             --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
-            --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.7);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
+            --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.8);
         }
 
         /* ============================================================
@@ -89,6 +92,17 @@
             line-height: 1.6;
         }
 
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-body);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--blue-france);
+            border-radius: 10px;
+        }
+
         a {
             color: var(--blue-france);
             text-decoration: none;
@@ -98,14 +112,15 @@
         }
 
         /* ============================================================
-           BANDE TRICOLORE (tout en haut)
+           BANDE TRICOLORE
            ============================================================ */
         .tricolor-bar {
             height: 4px;
             width: 100%;
             display: flex;
-            background: var(--bg-body);
-            transition: background var(--transition);
+            position: sticky;
+            top: 0;
+            z-index: 999;
         }
         .tricolor-bar .band {
             flex: 1;
@@ -126,6 +141,8 @@
            ============================================================ */
         .topbar {
             background: var(--bg-header);
+            backdrop-filter: var(--header-blur);
+            -webkit-backdrop-filter: var(--header-blur);
             border-bottom: 1px solid var(--border-color);
             padding: 0.6rem 1.5rem;
             display: flex;
@@ -137,6 +154,9 @@
             width: 100%;
             transition: background var(--transition), border-color var(--transition);
             gap: 0.5rem 1rem;
+            position: sticky;
+            top: 4px;
+            z-index: 100;
         }
 
         .topbar-left {
@@ -146,18 +166,24 @@
             flex-wrap: wrap;
         }
 
-        /* Logo RF */
+        /* Logo image */
+        .logo-img {
+            height: 44px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+            transition: opacity var(--transition);
+        }
+        .logo-img:hover {
+            opacity: 0.85;
+        }
+
         .logo-rf {
             display: flex;
             align-items: center;
             gap: 0.6rem;
             padding-right: 1rem;
             border-right: 1px solid var(--border-color);
-        }
-        .logo-rf svg {
-            width: 36px;
-            height: 36px;
-            flex-shrink: 0;
         }
         .logo-rf .rf-text {
             display: flex;
@@ -218,7 +244,9 @@
             flex-wrap: wrap;
         }
 
-        /* Notifications */
+        /* ============================================================
+           NOTIFICATIONS
+           ============================================================ */
         .notif-wrapper {
             position: relative;
             display: inline-block;
@@ -237,9 +265,11 @@
             align-items: center;
             gap: 0.4rem;
             position: relative;
+            backdrop-filter: blur(4px);
         }
         .notif-btn:hover {
             background: var(--grey-100);
+            border-color: var(--blue-france);
         }
         .notif-badge {
             background: var(--red-marianne);
@@ -247,31 +277,33 @@
             font-size: 0.6rem;
             font-weight: 700;
             border-radius: 50%;
-            width: 1.2rem;
+            min-width: 1.2rem;
             height: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0 4px;
             position: absolute;
             top: -6px;
             right: -6px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 8px rgba(225, 0, 15, 0.3);
         }
         .notif-dropdown {
             display: none;
             position: absolute;
             top: calc(100% + 8px);
             right: 0;
-            min-width: 320px;
-            max-width: 380px;
+            min-width: 340px;
+            max-width: 400px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            padding: 0.8rem 0;
-            z-index: 300;
-            max-height: 400px;
+            box-shadow: var(--shadow-xl);
+            padding: 0.5rem 0;
+            z-index: 400;
+            max-height: 460px;
             overflow-y: auto;
+            backdrop-filter: blur(8px);
         }
         .notif-dropdown.open {
             display: block;
@@ -280,7 +312,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 1rem 0.5rem 1rem;
+            padding: 0.3rem 1rem 0.6rem 1rem;
             border-bottom: 1px solid var(--border-color);
             font-weight: 600;
             font-size: 0.9rem;
@@ -293,12 +325,14 @@
             cursor: pointer;
             font-weight: 600;
             font-family: inherit;
+            transition: var(--transition);
         }
         .notif-dropdown .notif-header button:hover {
             text-decoration: underline;
+            color: var(--blue-france-hover);
         }
         .notif-item {
-            padding: 0.6rem 1rem;
+            padding: 0.7rem 1rem;
             border-bottom: 1px solid var(--border-color);
             transition: background var(--transition);
             cursor: pointer;
@@ -318,26 +352,50 @@
             background: var(--blue-france);
             border-radius: 50%;
             flex-shrink: 0;
-            margin-top: 0.3rem;
+            margin-top: 0.4rem;
+            transition: background var(--transition);
         }
         .notif-item.read .notif-dot {
             background: var(--grey-300);
         }
         .notif-item .notif-content {
             flex: 1;
+            min-width: 0;
         }
         .notif-item .notif-content .notif-title {
             font-weight: 600;
             font-size: 0.85rem;
+            color: var(--text-primary);
         }
         .notif-item .notif-content .notif-text {
             font-size: 0.8rem;
             color: var(--text-secondary);
-            margin: 0.1rem 0 0.2rem;
+            margin: 0.1rem 0 0.3rem;
         }
         .notif-item .notif-content .notif-date {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--grey-600);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        /* Images dans les notifications (max 3) */
+        .notif-images {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+        .notif-images img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition);
+        }
+        .notif-images img:hover {
+            transform: scale(1.05);
         }
         .notif-item .notif-mark-read {
             background: transparent;
@@ -349,6 +407,7 @@
             padding: 0.2rem 0.4rem;
             border-radius: var(--radius);
             transition: var(--transition);
+            flex-shrink: 0;
         }
         .notif-item .notif-mark-read:hover {
             background: var(--grey-200);
@@ -360,7 +419,9 @@
             font-size: 0.9rem;
         }
 
-        /* Recherche et thème */
+        /* ============================================================
+           RECHERCHE & THÈME
+           ============================================================ */
         .search-box {
             display: flex;
             align-items: center;
@@ -373,6 +434,7 @@
         .search-box:focus-within {
             border-color: var(--blue-france);
             box-shadow: 0 0 0 3px rgba(0, 0, 145, 0.12);
+            background: var(--bg-body);
         }
         .search-box input {
             border: none;
@@ -421,6 +483,7 @@
         }
         .theme-btn:hover {
             background: var(--grey-100);
+            border-color: var(--blue-france);
         }
 
         /* ============================================================
@@ -428,12 +491,17 @@
            ============================================================ */
         .menu-bar {
             background: var(--bg-menu);
+            backdrop-filter: var(--header-blur);
+            -webkit-backdrop-filter: var(--header-blur);
             border-bottom: 1px solid var(--border-color);
             padding: 0 1.5rem;
             max-width: 1280px;
             margin: 0 auto;
             width: 100%;
             transition: background var(--transition), border-color var(--transition);
+            position: sticky;
+            top: 52px;
+            z-index: 99;
         }
 
         .menu-bar nav {
@@ -472,6 +540,7 @@
             background: var(--blue-france);
             color: #fff;
             text-decoration: none;
+            transform: translateY(-1px);
         }
         .menu-bar .menu-item>a:hover i,
         .menu-bar .menu-item>.dropbtn:hover i {
@@ -490,6 +559,7 @@
             left: 0;
             min-width: 240px;
             background: var(--bg-card);
+            backdrop-filter: blur(8px);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             padding: 0.4rem 0;
@@ -545,13 +615,13 @@
             max-width: 1280px;
             margin: 0 auto;
             width: 100%;
-            animation: fadeUp 0.25s ease;
+            animation: fadeUp 0.3s ease;
         }
 
         @keyframes fadeUp {
             0% {
                 opacity: 0;
-                transform: translateY(8px);
+                transform: translateY(12px);
             }
             100% {
                 opacity: 1;
@@ -563,12 +633,24 @@
         .hero {
             background: var(--bg-hero);
             border-radius: var(--radius-lg);
-            padding: 2.5rem 3rem;
+            padding: 2.8rem 3rem;
             margin-bottom: 2.5rem;
             border-left: 5px solid var(--blue-france);
             transition: background var(--transition);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 0, 145, 0.04) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
         .hero::after {
             content: "⚜️";
@@ -582,9 +664,10 @@
         }
         .hero h1 {
             color: var(--blue-france);
-            font-size: 2rem;
+            font-size: 2.1rem;
             font-weight: 700;
             margin: 0 0 0.25rem 0;
+            position: relative;
         }
         .hero h1 span {
             color: var(--red-marianne);
@@ -595,11 +678,13 @@
             max-width: 640px;
             margin: 0 0 1.5rem 0;
             line-height: 1.7;
+            position: relative;
         }
         .hero .cta-group {
             display: flex;
             flex-wrap: wrap;
             gap: 0.75rem;
+            position: relative;
         }
         .hero .cta-group .btn {
             display: inline-flex;
@@ -619,6 +704,7 @@
         .hero .cta-group .btn:hover {
             background: var(--blue-france-hover);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
         .hero .cta-group .btn-outline {
             background: transparent;
@@ -646,8 +732,8 @@
             box-shadow: var(--shadow-sm);
         }
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
             border-color: var(--blue-france);
         }
         .card .card-icon {
@@ -767,6 +853,7 @@
         }
         .page-404 .btn:hover {
             background: var(--blue-france-hover);
+            box-shadow: var(--shadow-md);
         }
 
         .page-indispo {
@@ -801,7 +888,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(6px);
             z-index: 9999;
             justify-content: center;
             align-items: center;
@@ -815,14 +902,14 @@
             padding: 2rem 2.5rem 2.5rem;
             max-width: 440px;
             width: 92%;
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-xl);
             border: 1px solid var(--border-color);
-            animation: modalIn 0.2s ease;
+            animation: modalIn 0.25s ease;
         }
         @keyframes modalIn {
             0% {
                 opacity: 0;
-                transform: scale(0.96) translateY(10px);
+                transform: scale(0.96) translateY(12px);
             }
             100% {
                 opacity: 1;
@@ -842,6 +929,7 @@
         }
         .theme-modal .modal-box .close-btn:hover {
             color: var(--red-marianne);
+            transform: rotate(90deg);
         }
         .theme-modal .modal-box h2 {
             color: var(--blue-france);
@@ -893,6 +981,7 @@
            ============================================================ */
         .footer {
             background: var(--bg-header);
+            backdrop-filter: var(--header-blur);
             border-top: 1px solid var(--border-color);
             padding: 1.5rem 1.5rem;
             max-width: 1280px;
@@ -916,6 +1005,7 @@
                 align-items: stretch;
                 gap: 0.5rem;
                 padding: 0.5rem 1rem;
+                top: 4px;
             }
             .topbar-left {
                 justify-content: center;
@@ -929,6 +1019,7 @@
             }
             .menu-bar {
                 padding: 0 0.5rem;
+                top: 48px;
             }
             .menu-bar nav {
                 justify-content: center;
@@ -942,6 +1033,7 @@
                 border-radius: 0;
                 min-width: auto;
                 background: transparent;
+                backdrop-filter: none;
             }
             .menu-bar .menu-item:hover .sub-menu {
                 display: none;
@@ -952,6 +1044,9 @@
             .notif-dropdown {
                 min-width: 280px;
                 right: -20px;
+            }
+            .hero::after {
+                display: none;
             }
         }
 
@@ -993,6 +1088,10 @@
                 min-width: 260px;
                 right: -10px;
             }
+            .notif-images img {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -1013,14 +1112,13 @@
     ============================================================ -->
     <header class="topbar" role="banner">
         <div class="topbar-left">
-            <!-- Logo RF -->
+            <!-- LOGO CHARGÉ DEPUIS LE DOSSIER -->
+            <img src="/utils/public/images/index/ministre.png"
+            alt="Logo du Ministère de l'Intérieur"
+            class="logo-img"
+            onerror="this.style.display='none'" />
+
             <div class="logo-rf">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0" y="0" width="8" height="24" fill="#000091" />
-                    <rect x="8" y="0" width="8" height="24" fill="#ffffff" />
-                    <rect x="16" y="0" width="8" height="24" fill="#e1000f" />
-                    <text x="12" y="17" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#000091" text-anchor="middle">RF</text>
-                </svg>
                 <span class="rf-text">
                     <span class="rep">RÉPUBLIQUE</span>
                     <span class="fra">FRANÇAISE</span>
@@ -1040,13 +1138,13 @@
         <div class="topbar-right">
             <!-- Notifications -->
             <div class="notif-wrapper">
-                <button class="notif-btn" id="notifToggle">
+                <button class="notif-btn" id="notifToggle" aria-label="Notifications">
                     <i class="fas fa-bell"></i>
                     <span class="notif-badge" id="notifBadge">0</span>
                 </button>
                 <div class="notif-dropdown" id="notifDropdown">
                     <div class="notif-header">
-                        <span>Notifications</span>
+                        <span><i class="fas fa-bell" style="color:var(--blue-france);"></i> Notifications</span>
                         <button id="markAllRead">Tout marquer comme lu</button>
                     </div>
                     <div id="notifList"></div>
@@ -1170,7 +1268,6 @@
             const themeToggleBtn = document.getElementById('themeToggleBtn');
             const themeRadios = document.querySelectorAll('input[name="theme"]');
 
-            // Notifications
             const notifToggle = document.getElementById('notifToggle');
             const notifDropdown = document.getElementById('notifDropdown');
             const notifList = document.getElementById('notifList');
@@ -1178,42 +1275,114 @@
             const markAllReadBtn = document.getElementById('markAllRead');
 
             // ============================================================
-            // DONNÉES JSON (simulées) – Vous pouvez remplacer par un fetch
+            // NOTIFICATIONS : CHARGEMENT JSON + LOCALSTORAGE
             // ============================================================
-            let notifications = [{
-                id: 1,
-                title: 'Bienvenue sur le portail',
-                text: 'Vous êtes connecté à la Gendarmerie Nationale Roleplay.',
-                date: '2025-01-15T10:30:00',
-                read: false
-            }, {
-                id: 2,
-                title: 'Mise à jour des missions',
-                text: 'Les nouvelles fiches de missions sont disponibles.',
-                date: '2025-01-14T08:15:00',
-                read: false
-            }, {
-                id: 3,
-                title: 'Recrutement ouvert',
-                text: 'La campagne de recrutement 2025 est lancée.',
-                date: '2025-01-12T14:00:00',
-                read: true
-            }];
+            let notifications = [];
+            const STORAGE_KEY = 'gendarmerie-notif-read';
+
+            // Récupère les IDs lus depuis localStorage
+            function getReadIds() {
+                try {
+                    const data = localStorage.getItem(STORAGE_KEY);
+                    return data ? JSON.parse(data) : [];
+                } catch {
+                    return [];
+                }
+            }
+
+            // Sauvegarde un ID comme lu
+            function markAsRead(id) {
+                let readIds = getReadIds();
+                if (!readIds.includes(id)) {
+                    readIds.push(id);
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(readIds));
+                }
+                renderNotifications();
+            }
+
+            // Marque tout comme lu
+            function markAllAsRead() {
+                const allIds = notifications.map(n => n.id);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(allIds));
+                renderNotifications();
+            }
+
+            // Charge les notifications depuis JSON ou fallback
+            function loadNotifications() {
+                const url = '/notifications.json';
+
+                fetch(url)
+                    .then(res => {
+                        if (!res.ok) throw new Error('Fichier JSON non trouvé');
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (Array.isArray(data) && data.length) {
+                            notifications = data;
+                        } else {
+                            throw new Error('Format JSON invalide');
+                        }
+                    })
+                    .catch(() => {
+                        // FALLBACK : données mockées avec images et liens
+                        notifications = [{
+                            id: 1,
+                            title: 'Bienvenue sur le portail',
+                            text: 'Vous êtes connecté à la Gendarmerie Nationale Roleplay.',
+                            date: '2025-01-15T10:30:00',
+                            link: '#accueil',
+                            images: []
+                        }, {
+                            id: 2,
+                            title: 'Nouvelle mission disponible',
+                            text: 'Cliquez pour voir les détails de la mission "Sentinelle".',
+                            date: '2025-01-16T14:00:00',
+                            link: '#missions',
+                            images: [
+                                'https://placehold.co/50x50/000091/ffffff?text=M1',
+                                'https://placehold.co/50x50/e1000f/ffffff?text=M2'
+                            ]
+                        }, {
+                            id: 3,
+                            title: 'Recrutement 2025',
+                            text: 'La campagne de recrutement est ouverte jusqu\'au 31 mars.',
+                            date: '2025-01-17T09:15:00',
+                            link: '#recrutement',
+                            images: [
+                                'https://placehold.co/50x50/000091/ffffff?text=R1',
+                                'https://placehold.co/50x50/000091/ffffff?text=R2',
+                                'https://placehold.co/50x50/000091/ffffff?text=R3'
+                            ]
+                        }, {
+                            id: 4,
+                            title: 'Mise à jour système',
+                            text: 'Le site a été modernisé avec un nouveau système de notifications.',
+                            date: '2025-01-18T11:00:00',
+                            link: null,
+                            images: []
+                        }];
+                    })
+                    .finally(() => {
+                        renderNotifications();
+                    });
+            }
 
             // ============================================================
             // AFFICHAGE DES NOTIFICATIONS
             // ============================================================
             function renderNotifications() {
-                const unread = notifications.filter(n => !n.read).length;
+                const readIds = getReadIds();
+                const unread = notifications.filter(n => !readIds.includes(n.id)).length;
                 notifBadge.textContent = unread;
 
                 if (notifications.length === 0) {
-                    notifList.innerHTML = `<div class="notif-empty">Aucune notification</div>`;
+                    notifList.innerHTML = `<div class="notif-empty"><i class="fas fa-check-circle"></i> Aucune notification</div>`;
                     return;
                 }
 
                 let html = '';
                 notifications.forEach(n => {
+                    const isRead = readIds.includes(n.id);
                     const dateObj = new Date(n.date);
                     const dateStr = dateObj.toLocaleDateString('fr-FR', {
                         day: 'numeric',
@@ -1221,21 +1390,30 @@
                         hour: '2-digit',
                         minute: '2-digit'
                     });
+
+                    // Construction des images (max 3)
+                    let imagesHtml = '';
+                    if (n.images && n.images.length > 0) {
+                        const imgs = n.images.slice(0, 3);
+                        imagesHtml = `<div class="notif-images">${imgs.map(src => `<img src="${src}" alt="Image" loading="lazy" />`).join('')}</div>`;
+                    }
+
                     html += `
-                        <div class="notif-item ${n.read ? 'read' : ''}" data-id="${n.id}">
+                        <div class="notif-item ${isRead ? 'read' : ''}" data-id="${n.id}" data-link="${n.link || ''}">
                             <span class="notif-dot"></span>
                             <div class="notif-content">
                                 <div class="notif-title">${n.title}</div>
                                 <div class="notif-text">${n.text}</div>
+                                ${imagesHtml}
                                 <div class="notif-date"><i class="far fa-clock"></i> ${dateStr}</div>
                             </div>
-                            ${!n.read ? `<button class="notif-mark-read" data-id="${n.id}"><i class="fas fa-check"></i></button>` : ''}
+                            ${!isRead ? `<button class="notif-mark-read" data-id="${n.id}"><i class="fas fa-check"></i></button>` : ''}
                         </div>
                     `;
                 });
                 notifList.innerHTML = html;
 
-                // Événements pour marquer comme lu individuellement
+                // Événements "Marquer comme lu" individuels
                 document.querySelectorAll('.notif-mark-read').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.stopPropagation();
@@ -1244,51 +1422,65 @@
                     });
                 });
 
-                // Clic sur un élément pour le marquer comme lu (sauf si déjà lu)
-                document.querySelectorAll('.notif-item:not(.read)').forEach(item => {
-                    item.addEventListener('click', function() {
+                // Clic sur une notification (si lien)
+                document.querySelectorAll('.notif-item').forEach(item => {
+                    item.addEventListener('click', function(e) {
+                        // Si on a cliqué sur le bouton "marquer comme lu", on ne redirige pas
+                        if (e.target.closest('.notif-mark-read')) return;
+
+                        const link = this.dataset.link;
                         const id = parseInt(this.dataset.id);
-                        markAsRead(id);
+
+                        // Marquer comme lu automatiquement au clic
+                        if (!getReadIds().includes(id)) {
+                            markAsRead(id);
+                        }
+
+                        if (link) {
+                            handleNotifLink(link);
+                        }
                     });
                 });
             }
 
-            function markAsRead(id) {
-                const notif = notifications.find(n => n.id === id);
-                if (notif && !notif.read) {
-                    notif.read = true;
-                    renderNotifications();
-                    // Persistance (simulée)
-                    saveNotifications();
+            // ============================================================
+            // GESTION DES LIENS DANS LES NOTIFICATIONS
+            // ============================================================
+            function handleNotifLink(link) {
+                // Lien interne SPA (commence par #)
+                if (link.startsWith('#')) {
+                    const page = link.substring(1);
+                    if (page && fallbackPages[page]) {
+                        navigateTo(page);
+                        history.pushState({ page }, '', '#' + page);
+                        notifDropdown.classList.remove('open');
+                        return;
+                    }
                 }
-            }
 
-            function markAllAsRead() {
-                notifications.forEach(n => n.read = true);
-                renderNotifications();
-                saveNotifications();
-            }
-
-            // Sauvegarde en localStorage (simule une persistance JSON)
-            function saveNotifications() {
-                localStorage.setItem('gendarmerie-notifications', JSON.stringify(notifications));
-            }
-
-            function loadNotifications() {
-                const stored = localStorage.getItem('gendarmerie-notifications');
-                if (stored) {
-                    try {
-                        const parsed = JSON.parse(stored);
-                        if (Array.isArray(parsed) && parsed.length) {
-                            notifications = parsed;
-                        }
-                    } catch (e) { /* ignore */ }
+                // Lien vers une page du site (/pages/public/...)
+                if (link.startsWith('/pages/')) {
+                    const page = link.split('/').pop().replace('.html', '');
+                    if (page && fallbackPages[page]) {
+                        navigateTo(page);
+                        history.pushState({ page }, '', '#' + page);
+                        notifDropdown.classList.remove('open');
+                        return;
+                    }
                 }
-                renderNotifications();
+
+                // Lien externe ou autre
+                if (link.startsWith('http')) {
+                    window.open(link, '_blank');
+                } else {
+                    // Fallback : on navigue simplement vers la page d'accueil
+                    navigateTo('accueil');
+                }
+                notifDropdown.classList.remove('open');
             }
 
             // ============================================================
-            // TOGGLE NOTIFICATION DROPDOWN
+            // TOGGLE DROPDOWN
             // ============================================================
             notifToggle.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -1680,7 +1872,7 @@
             }
 
             loadStoredTheme();
-            loadNotifications(); // Charger les notifications
+            loadNotifications(); // Chargement asynchrone des notifications
             setTimeout(attachEvents, 120);
 
         })();
