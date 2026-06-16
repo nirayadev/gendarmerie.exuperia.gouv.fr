@@ -5,56 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gendarmerie Nationale · Roleplay</title>
 
-    <!-- Police Marianne (officielle) -->
+    <!-- Police Marianne -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Font Awesome 6 (icônes vectorielles) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <!-- Font Awesome 6 (gratuit) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
         /* ============================================================
-           VARIABLES DSFR
+           VARIABLES (inspirées du DSFR)
            ============================================================ */
         :root {
             --blue-france: #000091;
             --blue-france-hover: #0000b3;
             --red-marianne: #e1000f;
             --white: #ffffff;
-            --grey-50: #f5f5f5;
-            --grey-100: #ededed;
-            --grey-200: #d4d4d4;
-            --grey-300: #b8b8b8;
-            --grey-600: #5a5a5a;
-            --grey-800: #1e1e1e;
-            --text-primary: #1e1e1e;
-            --text-secondary: #5a5a5a;
+            --grey-50: #f6f6f9;
+            --grey-100: #ebedf0;
+            --grey-200: #d1d4d9;
+            --grey-300: #b5b9c2;
+            --grey-600: #555a64;
+            --grey-800: #1e1e24;
+            --text-primary: #1e1e24;
+            --text-secondary: #555a64;
             --bg-body: #ffffff;
             --bg-header: #ffffff;
+            --bg-menu: #ffffff;
             --bg-card: #ffffff;
-            --bg-hero: #f5f5f5;
-            --border-color: #d4d4d4;
-            --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.05);
+            --bg-hero: #f6f6f9;
+            --border-color: #d1d4d9;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
             --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.10);
             --radius: 4px;
             --radius-lg: 8px;
             --transition: 0.2s ease;
             --font: 'Marianne', 'Segoe UI', Arial, sans-serif;
+            --tricolor-blue: #000091;
+            --tricolor-white: #ffffff;
+            --tricolor-red: #e1000f;
         }
 
         [data-theme="dark"] {
-            --bg-body: #1a1a1a;
-            --bg-header: #222222;
-            --bg-card: #2a2a2a;
-            --bg-hero: #2a2a2a;
-            --text-primary: #f0f0f0;
-            --text-secondary: #bbbbbb;
-            --border-color: #444444;
-            --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.4);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+            --bg-body: #17171c;
+            --bg-header: #22222a;
+            --bg-menu: #22222a;
+            --bg-card: #2a2a33;
+            --bg-hero: #2a2a33;
+            --text-primary: #ededf0;
+            --text-secondary: #b0b3ba;
+            --border-color: #3e3e48;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.7);
         }
 
         /* ============================================================
@@ -93,11 +98,35 @@
         }
 
         /* ============================================================
-           TOPBAR (style DSFR)
+           BANDE TRICOLORE (tout en haut)
+           ============================================================ */
+        .tricolor-bar {
+            height: 4px;
+            width: 100%;
+            display: flex;
+            background: var(--bg-body);
+            transition: background var(--transition);
+        }
+        .tricolor-bar .band {
+            flex: 1;
+            height: 100%;
+        }
+        .tricolor-bar .band-blue {
+            background: var(--tricolor-blue);
+        }
+        .tricolor-bar .band-white {
+            background: var(--tricolor-white);
+        }
+        .tricolor-bar .band-red {
+            background: var(--tricolor-red);
+        }
+
+        /* ============================================================
+           TOPBAR
            ============================================================ */
         .topbar {
             background: var(--bg-header);
-            border-bottom: 3px solid var(--blue-france);
+            border-bottom: 1px solid var(--border-color);
             padding: 0.6rem 1.5rem;
             display: flex;
             flex-wrap: wrap;
@@ -106,7 +135,7 @@
             max-width: 1280px;
             margin: 0 auto;
             width: 100%;
-            transition: background var(--transition);
+            transition: background var(--transition), border-color var(--transition);
             gap: 0.5rem 1rem;
         }
 
@@ -117,28 +146,28 @@
             flex-wrap: wrap;
         }
 
-        /* Blason RF (SVG inline) */
+        /* Logo RF */
         .logo-rf {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             padding-right: 1rem;
             border-right: 1px solid var(--border-color);
         }
         .logo-rf svg {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             flex-shrink: 0;
         }
         .logo-rf .rf-text {
             display: flex;
             flex-direction: column;
             line-height: 1.1;
-            font-size: 0.55rem;
+            font-size: 0.6rem;
             font-weight: 600;
             color: var(--blue-france);
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.3px;
         }
         .logo-rf .rf-text .rep {
             font-weight: 300;
@@ -189,6 +218,149 @@
             flex-wrap: wrap;
         }
 
+        /* Notifications */
+        .notif-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .notif-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            position: relative;
+        }
+        .notif-btn:hover {
+            background: var(--grey-100);
+        }
+        .notif-badge {
+            background: var(--red-marianne);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            border-radius: 50%;
+            width: 1.2rem;
+            height: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+        .notif-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            min-width: 320px;
+            max-width: 380px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 0.8rem 0;
+            z-index: 300;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .notif-dropdown.open {
+            display: block;
+        }
+        .notif-dropdown .notif-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem 0.5rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .notif-dropdown .notif-header button {
+            background: transparent;
+            border: none;
+            color: var(--blue-france);
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+        }
+        .notif-dropdown .notif-header button:hover {
+            text-decoration: underline;
+        }
+        .notif-item {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background var(--transition);
+            cursor: pointer;
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+        .notif-item:last-child {
+            border-bottom: none;
+        }
+        .notif-item:hover {
+            background: var(--grey-100);
+        }
+        .notif-item .notif-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--blue-france);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 0.3rem;
+        }
+        .notif-item.read .notif-dot {
+            background: var(--grey-300);
+        }
+        .notif-item .notif-content {
+            flex: 1;
+        }
+        .notif-item .notif-content .notif-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .notif-item .notif-content .notif-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin: 0.1rem 0 0.2rem;
+        }
+        .notif-item .notif-content .notif-date {
+            font-size: 0.65rem;
+            color: var(--grey-600);
+        }
+        .notif-item .notif-mark-read {
+            background: transparent;
+            border: none;
+            color: var(--blue-france);
+            font-size: 0.7rem;
+            cursor: pointer;
+            font-family: inherit;
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        .notif-item .notif-mark-read:hover {
+            background: var(--grey-200);
+        }
+        .notif-empty {
+            padding: 1.5rem 1rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Recherche et thème */
         .search-box {
             display: flex;
             align-items: center;
@@ -255,13 +427,13 @@
            MENU
            ============================================================ */
         .menu-bar {
-            background: var(--bg-header);
+            background: var(--bg-menu);
             border-bottom: 1px solid var(--border-color);
             padding: 0 1.5rem;
             max-width: 1280px;
             margin: 0 auto;
             width: 100%;
-            transition: background var(--transition);
+            transition: background var(--transition), border-color var(--transition);
         }
 
         .menu-bar nav {
@@ -395,6 +567,18 @@
             margin-bottom: 2.5rem;
             border-left: 5px solid var(--blue-france);
             transition: background var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: "⚜️";
+            font-size: 6rem;
+            opacity: 0.06;
+            position: absolute;
+            right: 1.5rem;
+            bottom: -1rem;
+            transform: rotate(-12deg);
+            pointer-events: none;
         }
         .hero h1 {
             color: var(--blue-france);
@@ -449,7 +633,7 @@
         /* --- Cartes --- */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
@@ -705,6 +889,25 @@
         }
 
         /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            background: var(--bg-header);
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            transition: background var(--transition);
+        }
+        .footer a {
+            color: var(--blue-france);
+        }
+
+        /* ============================================================
            RESPONSIVE
            ============================================================ */
         @media (max-width: 860px) {
@@ -746,6 +949,10 @@
             .menu-bar .menu-item .sub-menu.open {
                 display: flex !important;
             }
+            .notif-dropdown {
+                min-width: 280px;
+                right: -20px;
+            }
         }
 
         @media (max-width: 540px) {
@@ -782,6 +989,10 @@
             .page-generic .card-content {
                 padding: 1.5rem 1rem;
             }
+            .notif-dropdown {
+                min-width: 260px;
+                right: -10px;
+            }
         }
     </style>
 </head>
@@ -789,11 +1000,20 @@
 <body>
 
     <!-- ============================================================
+    BANDE TRICOLORE
+    ============================================================ -->
+    <div class="tricolor-bar">
+        <span class="band band-blue"></span>
+        <span class="band band-white"></span>
+        <span class="band band-red"></span>
+    </div>
+
+    <!-- ============================================================
     TOPBAR
     ============================================================ -->
     <header class="topbar" role="banner">
         <div class="topbar-left">
-            <!-- Logo RF avec SVG inline (plus besoin d'image externe) -->
+            <!-- Logo RF -->
             <div class="logo-rf">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="0" y="0" width="8" height="24" fill="#000091" />
@@ -818,10 +1038,28 @@
         </div>
 
         <div class="topbar-right">
+            <!-- Notifications -->
+            <div class="notif-wrapper">
+                <button class="notif-btn" id="notifToggle">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-badge" id="notifBadge">0</span>
+                </button>
+                <div class="notif-dropdown" id="notifDropdown">
+                    <div class="notif-header">
+                        <span>Notifications</span>
+                        <button id="markAllRead">Tout marquer comme lu</button>
+                    </div>
+                    <div id="notifList"></div>
+                </div>
+            </div>
+
+            <!-- Recherche -->
             <div class="search-box">
                 <input type="search" id="searchInput" placeholder="Rechercher..." aria-label="Rechercher" />
                 <button id="searchBtn"><i class="fas fa-search"></i> OK</button>
             </div>
+
+            <!-- Thème -->
             <button class="theme-btn" id="themeToggleBtn">
                 <i class="fas fa-palette"></i> Thème
             </button>
@@ -879,6 +1117,17 @@
     </main>
 
     <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <p>
+            <i class="fas fa-crown" style="color:var(--blue-france);"></i>
+            Gendarmerie Nationale · Site non officiel à but éducatif
+            · <a href="#" data-page="accueil">Accueil</a>
+        </p>
+    </footer>
+
+    <!-- ============================================================
     MODAL THÈME
     ============================================================ -->
     <div class="theme-modal" id="themeModal">
@@ -920,6 +1169,139 @@
             const themeModalClose = document.getElementById('themeModalClose');
             const themeToggleBtn = document.getElementById('themeToggleBtn');
             const themeRadios = document.querySelectorAll('input[name="theme"]');
+
+            // Notifications
+            const notifToggle = document.getElementById('notifToggle');
+            const notifDropdown = document.getElementById('notifDropdown');
+            const notifList = document.getElementById('notifList');
+            const notifBadge = document.getElementById('notifBadge');
+            const markAllReadBtn = document.getElementById('markAllRead');
+
+            // ============================================================
+            // DONNÉES JSON (simulées) – Vous pouvez remplacer par un fetch
+            // ============================================================
+            let notifications = [{
+                id: 1,
+                title: 'Bienvenue sur le portail',
+                text: 'Vous êtes connecté à la Gendarmerie Nationale Roleplay.',
+                date: '2025-01-15T10:30:00',
+                read: false
+            }, {
+                id: 2,
+                title: 'Mise à jour des missions',
+                text: 'Les nouvelles fiches de missions sont disponibles.',
+                date: '2025-01-14T08:15:00',
+                read: false
+            }, {
+                id: 3,
+                title: 'Recrutement ouvert',
+                text: 'La campagne de recrutement 2025 est lancée.',
+                date: '2025-01-12T14:00:00',
+                read: true
+            }];
+
+            // ============================================================
+            // AFFICHAGE DES NOTIFICATIONS
+            // ============================================================
+            function renderNotifications() {
+                const unread = notifications.filter(n => !n.read).length;
+                notifBadge.textContent = unread;
+
+                if (notifications.length === 0) {
+                    notifList.innerHTML = `<div class="notif-empty">Aucune notification</div>`;
+                    return;
+                }
+
+                let html = '';
+                notifications.forEach(n => {
+                    const dateObj = new Date(n.date);
+                    const dateStr = dateObj.toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'short',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    html += `
+                        <div class="notif-item ${n.read ? 'read' : ''}" data-id="${n.id}">
+                            <span class="notif-dot"></span>
+                            <div class="notif-content">
+                                <div class="notif-title">${n.title}</div>
+                                <div class="notif-text">${n.text}</div>
+                                <div class="notif-date"><i class="far fa-clock"></i> ${dateStr}</div>
+                            </div>
+                            ${!n.read ? `<button class="notif-mark-read" data-id="${n.id}"><i class="fas fa-check"></i></button>` : ''}
+                        </div>
+                    `;
+                });
+                notifList.innerHTML = html;
+
+                // Événements pour marquer comme lu individuellement
+                document.querySelectorAll('.notif-mark-read').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.dataset.id);
+                        markAsRead(id);
+                    });
+                });
+
+                // Clic sur un élément pour le marquer comme lu (sauf si déjà lu)
+                document.querySelectorAll('.notif-item:not(.read)').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const id = parseInt(this.dataset.id);
+                        markAsRead(id);
+                    });
+                });
+            }
+
+            function markAsRead(id) {
+                const notif = notifications.find(n => n.id === id);
+                if (notif && !notif.read) {
+                    notif.read = true;
+                    renderNotifications();
+                    // Persistance (simulée)
+                    saveNotifications();
+                }
+            }
+
+            function markAllAsRead() {
+                notifications.forEach(n => n.read = true);
+                renderNotifications();
+                saveNotifications();
+            }
+
+            // Sauvegarde en localStorage (simule une persistance JSON)
+            function saveNotifications() {
+                localStorage.setItem('gendarmerie-notifications', JSON.stringify(notifications));
+            }
+
+            function loadNotifications() {
+                const stored = localStorage.getItem('gendarmerie-notifications');
+                if (stored) {
+                    try {
+                        const parsed = JSON.parse(stored);
+                        if (Array.isArray(parsed) && parsed.length) {
+                            notifications = parsed;
+                        }
+                    } catch (e) { /* ignore */ }
+                }
+                renderNotifications();
+            }
+
+            // ============================================================
+            // TOGGLE NOTIFICATION DROPDOWN
+            // ============================================================
+            notifToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notifDropdown.classList.toggle('open');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!notifDropdown.contains(e.target) && e.target !== notifToggle) {
+                    notifDropdown.classList.remove('open');
+                }
+            });
+
+            markAllReadBtn.addEventListener('click', markAllAsRead);
 
             // ============================================================
             // THÈME
@@ -966,7 +1348,7 @@
             });
 
             // ============================================================
-            // PAGES (fallback avec icônes)
+            // PAGES (fallback)
             // ============================================================
             const fallbackPages = {
 
@@ -1150,7 +1532,6 @@
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     })
                     .catch(() => {
-                        // Fallback sécurisé
                         content.innerHTML = fallbackPages[pageId] || fallbackPages['404'];
                         attachEvents();
                         updateTitle(pageId === '404' ? '404' : pageId);
@@ -1299,6 +1680,7 @@
             }
 
             loadStoredTheme();
+            loadNotifications(); // Charger les notifications
             setTimeout(attachEvents, 120);
 
         })();
